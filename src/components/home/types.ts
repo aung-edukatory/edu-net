@@ -1,0 +1,16 @@
+export type IconKind =
+  | "arrow"
+  | "briefcase"
+  | "books"
+  | "camera"
+  | "campus"
+  | "clock"
+  | "globe"
+  | "growth"
+  | "mail"
+  | "phone"
+  | "pin"
+  | "research"
+  | "support"
+  | "users"
+  | "userPlus";
