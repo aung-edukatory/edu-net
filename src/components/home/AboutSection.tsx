@@ -10,9 +10,7 @@ export default function AboutSection() {
       <Container className="grid gap-10 lg:grid-cols-[0.98fr_1.02fr] lg:items-center">
         <div className="max-w-xl">
           <h2 className="mt-5 text-3xl font-black tracking-[-0.05em] text-[#0b2349] sm:text-4xl">
-            Welcome to
-            <br />
-            ELS
+            Welcome to ELS
           </h2>
           <p className="mt-5 text-base leading-8 text-[#5f6f86]">
             Edukatory helps students move from uncertainty to confidence with
