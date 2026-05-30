@@ -311,7 +311,13 @@ export function getNewsStoryBySlug(slug: string) {
   return newsStories.find((story) => story.slug === slug);
 }
 
-export const footerLinks = {
+type FooterLink = {
+  label: string;
+  href: string;
+  disabled?: boolean;
+};
+
+export const footerLinks: Record<"school" | "support", FooterLink[]> = {
   school: [
     { label: "About us", href: "/about-us" },
     { label: "Campus life", href: "#"},
