@@ -17,6 +17,18 @@ export const metadata: Metadata = {
   title: "Edukatory | GED preparation and Language Courses",
   description:
     "Unlock your potential at Edukatory. Get GED preparation and tailored language courses to boost your academic and professional success.",
+  keywords: [
+    "premium education center Pattaya",
+    "academic support Thailand",
+    "structured learning support",
+    "student development programs",
+    "personalized education support",
+    "education pathway Thailand",
+    "learning support center Pattaya",
+    "future ready students",
+    "academic growth support",
+    "English and academic pathways",
+  ],
   icons: {
     icon: "/favicon.png", // or "/favicon.png"
   },

@@ -3,10 +3,10 @@ import type { IconKind } from "./types";
 export const navigation = [
   // { label: "Home", href: "#top" },
   { label: "About", href: "/#about" },
-  { label: "Courses", href: "#courses" },
-  { label: "Programs", href: "#courses" },
-  { label: "Teachers", href: "#teachers" },
-  { label: "News", href: "#news" },
+  { label: "Courses", href: "/#courses" },
+  { label: "Programs", href: "/#courses" },
+  { label: "Teachers", href: "/#teachers" },
+  { label: "News", href: "/#news" },
 ];
 
 export const siteIdentity = {
@@ -312,8 +312,18 @@ export function getNewsStoryBySlug(slug: string) {
 }
 
 export const footerLinks = {
-  school: ["About us", "Campus life", "Admissions"],
-  support: ["Courses Listings", "Events", "Teachers", "News"],
+  school: [
+    { label: "About us", href: "/about-us" },
+    { label: "Campus life", href: "#"},
+    { label: "Admissions", href: "#", disabled: true },
+  ],
+  support: [
+    { label: "Courses Listings", href: "/#courses" },
+    { label: "Events", href: "#" },
+    { label: "Teachers", href: "/#teachers" },
+    { label: "News", href: "/#news" },
+    { label: "FAQ", href: "/faq" },
+  ],
 };
 
 export const socialLinks: Array<{

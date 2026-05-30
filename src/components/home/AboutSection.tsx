@@ -13,22 +13,25 @@ export default function AboutSection() {
             Welcome to ELS
           </h2>
           <p className="mt-5 text-base leading-8 text-[#5f6f86]">
-            Edukatory helps students move from uncertainty to confidence with
-            structured classes, clear learning goals, and teachers who follow
-            each learner&apos;s progress closely.
+            ELS is a premium education and language pathway center specializing in GED preparation, English
+            programs, academic rebuilding, and university progression.
           </p>
           <p className="mt-4 text-base leading-8 text-[#5f6f86]">
-            Whether your goal is GED, stronger English, or university
-            readiness, our school gives you a practical pathway and steady
-            support from the first consultation.
+            We support students who need a more structured and supportive alternative to traditional education
+            through personalized assessments, guided academic pathways, and professionally managed support
+            systems.
           </p>
-          {/* <a
+          <p className="mt-4 text-base leading-8 text-[#5f6f86]">
+            At ELS, we focus not only on academic results, but also on building confidence, discipline, communication
+            skills, and long term educational direction for every student.
+          </p>
+          <a
             href="/about-us"
             className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
           >
             Learn more
             <Icon kind="arrow" className="h-4 w-4" />
-          </a> */}
+          </a>
         </div>
 
         <div className="relative rounded-[30px] border border-[#e4eaf3] bg-white p-8 shadow-[0_24px_60px_rgba(11,35,73,0.08)]">

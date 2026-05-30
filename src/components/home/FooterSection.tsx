@@ -48,15 +48,25 @@ export default function FooterSection() {
             School
           </h2>
           <div className="mt-5 space-y-3 text-sm text-[#d8e3f8]">
-            {footerLinks.school.map((item) => (
-              <a
-                key={item}
-                href="#about"
-                className="block transition-colors hover:text-white"
-              >
-                {item}
-              </a>
-            ))}
+            {footerLinks.school.map((item) =>
+              item.disabled ? (
+                <span
+                  key={item.label}
+                  aria-disabled="true"
+                  className="block cursor-not-allowed text-white/35"
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="block transition-colors hover:text-white"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </div>
         </div>
 
@@ -65,15 +75,25 @@ export default function FooterSection() {
             Support
           </h2>
           <div className="mt-5 space-y-3 text-sm text-[#d8e3f8]">
-            {footerLinks.support.map((item) => (
-              <a
-                key={item}
-                href="#courses"
-                className="block transition-colors hover:text-white"
-              >
-                {item}
-              </a>
-            ))}
+            {footerLinks.support.map((item) =>
+              item.disabled ? (
+                <span
+                  key={item.label}
+                  aria-disabled="true"
+                  className="block cursor-not-allowed text-white/35"
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="block transition-colors hover:text-white"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </div>
         </div>
 

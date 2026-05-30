@@ -1,183 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import Container from "@/components/Container";
-
-type CourseTab = "GED" | "Junior Courses" | "Adult Courses" | "Corporate Courses";
-type CourseCard = {
-  title: string;
-  detail: string;
-  mentor: string;
-  meta: string;
-  image: string;
-};
-
-const courseTabs: CourseTab[] = [
-  "GED",
-  "Junior Courses",
-  "Adult Courses",
-  "Corporate Courses",
-];
-
-const coursesByTab: Record<CourseTab, CourseCard[]> = {
-  GED: [
-    {
-      title: "GED Foundation",
-      detail: "4 months 160 hours",
-      mentor: "Mr. John",
-      meta: "GED",
-      image: "/courses/ged/ged-foundation.png",
-    },
-    {
-      title: "GED Fast Track",
-      detail: "4 months 200 hours",
-      mentor: "Ages 15+ English Level: At least B1",
-      meta: "GED",
-      image: "/courses/ged/ged-fast-track.png",
-    },
-    {
-      title: "GED Pathway",
-      detail: "4 months 240 hours",
-      mentor: "Ms. Anna",
-      meta: "GED",
-      image: "/courses/ged/ged-pathway.png",
-    },
-     {
-      title: "Compelete Pathway",
-      detail: "2 months 160 hours",
-      mentor: "Ms. Anna",
-      meta: "GED",
-      image: "/courses/ged/complete-pathway.png",
-    },
-    {
-      title: "Compelete Pathway Plus",
-      detail: "2 months 160 hours",
-      mentor: "Ms. Anna",
-      meta: "GED",
-      image: "/courses/ged/complete-pathway-plus.png",
-    },
-  ],
-  "Junior Courses": [
-    {
-      title: "EDUKIDS ENGLISH ADVENTURE",
-      detail: "Fun and interactive English lessons for young learners.",
-      mentor: "Ms. Lily",
-      meta: "Junior",
-      image: "/courses/junior-course/edukids-english-adventure.png",
-    },
-    {
-      title: "EDUKIDS THAI ADVENTURE",
-      detail: "Strong foundation in arithmetic and problem-solving.",
-      mentor: "Mr. David",
-      meta: "Junior",
-      image: "/courses/junior-course/edukids-thai-adventure.png",
-    },
-    {
-      title: "EDUKIDS CHINESE ADVENTURE",
-      detail: "Strong foundation in arithmetic and problem-solving.",
-      mentor: "Mr. David",
-      meta: "Junior",
-      image: "/courses/junior-course/edukids-chinese-adventure.png",
-    },
-    {
-      title: "EDUKIDS ENGLISH WEEKENDER",
-      detail: "Strong foundation in arithmetic and problem-solving.",
-      mentor: "Mr. David",
-      meta: "Junior",
-      image: "/courses/junior-course/edukids-english-weekender.png",
-    },
-    {
-      title: "EDUKIDS THAI WEEKENDER",
-      detail: "Strong foundation in arithmetic and problem-solving.",
-      mentor: "Mr. David",
-      meta: "Junior",
-      image: "/courses/junior-course/edukids-thai-weekender.png",
-    },
-    {
-      title: "EDUKIDS CHINESE WEEKENDER",
-      detail: "Strong foundation in arithmetic and problem-solving.",
-      mentor: "Mr. David",
-      meta: "Junior",
-      image: "/courses/junior-course/edukids-chinese-weekender.png",
-    },
-  ],
-  "Adult Courses": [
-    {
-      title: "EDU ENGLISH",
-      detail: "Chinese, English (12 Weeks)",
-      mentor: "Mr. Alex",
-      meta: "Adult",
-      image: "/courses/adjust-course/edu-english.png",
-    },
-    {
-      title: "EDU THAI",
-      detail: "English, Spanish (1 week)",
-      mentor: "Ms. Sophia",
-      meta: "Adult",
-      image: "/courses/adjust-course/edu-thai.png",
-    },
-    {
-      title: "EDU CHINESE",
-      detail: "Chinese, English, German",
-      mentor: "Ms. Sophia",
-      meta: "Adult",
-      image: "/courses/adjust-course/edu-chinese.png",
-    },
-    {
-      title: "EDU BUSINESS ENGLISH",
-      detail: "Chinese, English (12 Weeks)",
-      mentor: "Ms. Sophia",
-      meta: "Adult",
-      image: "/courses/adjust-course/edu-business-english.png",
-    },
-    {
-      title: "EDU ENGLISH ON-LINE",
-      detail: "English, French, German (20 Weeks)",
-      mentor: "Ms. Sophia",
-      meta: "Adult",
-      image: "/courses/adjust-course/edu-english-online.png",
-    },
-    {
-      title: "EDU BUSINESS ONLINE",
-      detail: "Chinese, English, German (24 Weeks)",
-      mentor: "Ms. Sophia",
-      meta: "Adult",
-      image: "/courses/adjust-course/edu-business-online.png",
-    },
-  ],
-  "Corporate Courses": [
-    {
-      title: "EDUCOR ENGLISH IN-SCHOOL",
-      detail: "Customized training programs for company teams.",
-      mentor: "Mr. Michael",
-      meta: "Corporate",
-      image: "/courses/copoerate-course/EDUCOR-English-In-school.png",
-    },
-    {
-      title: "EDUCOR BUSINESS ENGLISH IN-SCHOOL",
-      detail: "Develop leadership and management capabilities.",
-      mentor: "Ms. Emma",
-      meta: "Corporate",
-      image: "/courses/copoerate-course/EDUCOR-Business-English-In-School.png",
-    },
-    {
-      title: "EDUCOR ENGLISH ON-SITE",
-      detail: "Develop leadership and management capabilities.",
-      mentor: "Ms. Emma",
-      meta: "Corporate",
-      image: "/courses/copoerate-course/EDUCOR-English-On-Site.png",
-    },
-    {
-      title: "EDUCOR BUSINESS ENGLISH ON-SITE",
-      detail: "Develop leadership and management capabilities.",
-      mentor: "Ms. Emma",
-      meta: "Corporate",
-      image: "/courses/copoerate-course/EDUCOR-Business-English-On-Site.png",
-    },
-  ],
-};
+import { courseTabs, coursesByTab, type CourseTab } from "@/data/courses";
+import Icon from "./Icon";
 
 export default function CoursesSection() {
   const [activeTab, setActiveTab] = useState<CourseTab>("GED");
@@ -246,21 +75,15 @@ export default function CoursesSection() {
                 <p className="mt-3 min-h-[56px] text-sm leading-7 text-[#61708a]">
                   {course.detail}
                 </p>
-                {/* <div className="mt-7 flex items-center justify-between gap-4 border-t border-[#edf2f7] pt-5 text-sm">
-                  <div>
-                    <div className="font-bold text-[#0b2349]">
-                      {course.mentor}
-                    </div>
-                    <div className="text-[#7d8aa0]">Lead mentor</div>
-                  </div>
-                  <div className="flex items-center gap-2 text-[#7d8aa0]">
-                    <span className="flex -space-x-2">
-                      <span className="h-8 w-8 rounded-full border-2 border-white bg-[#f4c060]" />
-                      <span className="h-8 w-8 rounded-full border-2 border-white bg-[#7fb4ff]" />
-                      <span className="h-8 w-8 rounded-full border-2 border-white bg-[#9fd18a]" />
-                    </span>
-                  </div>
-                </div> */}
+
+                <Link
+                  href={course.href}
+                  className="mt-3 inline-flex items-center gap-3 rounded-full bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
+                >
+                  Know more
+
+                  <Icon kind="arrow" className="h-4 w-4" />
+                </Link>
               </div>
             </article>
           ))}
