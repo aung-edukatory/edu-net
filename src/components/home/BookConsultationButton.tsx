@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { CalendarCheck, X } from "lucide-react";
 
 const CONSULTATION_CALENDAR_URL =
   "https://calendar.google.com/calendar/embed?src=krystal%40edukatory.com&ctz=Asia%2FBangkok";
@@ -33,8 +33,13 @@ export default function BookConsultationButton() {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center justify-center rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
+        className="inline-flex items-center justify-center gap-3 rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
       >
+        <CalendarCheck
+          className="h-5 w-5"
+          strokeWidth={2.1}
+          aria-hidden="true"
+        />
         Book consultation
       </button>
 

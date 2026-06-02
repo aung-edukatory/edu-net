@@ -31,32 +31,38 @@ export const contactDetails = {
 export const heroSpotlightLeadCard = {
   title: "A school built for focused progress",
   detail:
-    "Edukatory combines structured classes, mentoring, and practical study support for every learner.",
+    "Structured classes, expert mentoring, and practical study support that empower every learner to achieve real, measurable results.",
+  href: "#",
 };
 
 export const heroSpotlightActionCards: Array<{
   title: string;
   detail: string;
-  icon: Extract<IconKind, "mail" | "support" | "userPlus">;
+  href: string;
+  icon: Extract<IconKind, "calendar" | "faq" | "usersRound">;
   tone: string;
 }> = [
   {
-    title: "GET QUOTE",
-    detail: "Find the price of your ideal course",
-    icon: "mail",
-    tone: "bg-[#4d76ff]",
+    title: "PATHWAY CONSULTATION",
+    detail: "Tell us about your goals and academic background. Our advisors will recommend the most suitable ELS pathway for you.",
+    href: "#",
+    icon: "usersRound",
+    tone: "bg-[linear-gradient(145deg,#4f7cff_0%,#2f62ff_56%,#315cff_100%)]",
   },
   {
-    title: "ASK A QUESTION",
-    detail: "Not sure what you need?Ask our Advisors",
-    icon: "support",
-    tone: "bg-[#9ccb51]",
+    title: "FAQ",
+    detail:
+      "Find answers to common questions about our programs, admissions, schedules, fees, and student support services.",
+    href: "/faq",
+    icon: "faq",
+    tone: "bg-[linear-gradient(145deg,#9ed056_0%,#83bd42_55%,#79b63c_100%)]",
   },
   {
-    title: "JOIN TODAY!",
-    detail: " Sign Up Now for a Free Trial",
-    icon: "userPlus",
-    tone: "bg-[#ff6d6d]",
+    title: "ACADEMIC CALENDAR",
+    detail: "View intake dates, academic schedules, holidays, and exam periods to help you plan your learning journey.",
+    href: "#",
+    icon: "calendar",
+    tone: "bg-[linear-gradient(145deg,#ff646c_0%,#ff4e59_55%,#ff4854_100%)]",
   },
 ];
 
