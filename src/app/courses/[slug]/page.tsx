@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Container from "@/components/Container";
+import CourseEnquiryButton from "@/components/course/CourseEnquiryButton";
 import { courseDetails, coursesByTab } from "@/data/courses";
 
 type CourseDetailPageProps = {
@@ -147,6 +148,30 @@ export default async function CourseDetailPage({
           </Container>
         </section>
       )}
+
+      <section className="border-y border-[#dfe6f0] bg-white py-12">
+        <Container>
+          <div className="mx-auto flex max-w-4xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#0f8b8d]">
+                Course enquiry
+              </p>
+              <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-[#0b2349]">
+                Have questions about {course.title}?
+              </h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[#60708a]">
+                Send us your enquiry and our admissions team will help you with
+                program details, schedule, and next steps.
+              </p>
+            </div>
+
+            <CourseEnquiryButton
+              courseSlug={course.slug}
+              courseTitle={course.title}
+            />
+          </div>
+        </Container>
+      </section>
 
       <section className="bg-[#f1f5fa] py-16 sm:py-20">
         <Container>

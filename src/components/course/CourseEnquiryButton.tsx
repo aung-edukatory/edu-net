@@ -1,13 +1,28 @@
 "use client";
 
-import { type FormEvent, useEffect, useState } from "react";
-import { CalendarCheck, Send, X } from "lucide-react";
+import { type FormEvent, useCallback, useEffect, useState } from "react";
+import { CheckCircle2, Send, X } from "lucide-react";
 
-export default function BookConsultationButton() {
+type CourseEnquiryButtonProps = {
+  courseSlug: string;
+  courseTitle: string;
+};
+
+export default function CourseEnquiryButton({
+  courseSlug,
+  courseTitle,
+}: CourseEnquiryButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+    setIsSubmitting(false);
+    setIsSubmitted(false);
+    setErrorMessage("");
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -15,7 +30,7 @@ export default function BookConsultationButton() {
     const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        closeModal();
       }
     };
 
@@ -26,14 +41,7 @@ export default function BookConsultationButton() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
-
-  const closeForm = () => {
-    setIsOpen(false);
-    setIsSubmitted(false);
-    setIsSubmitting(false);
-    setErrorMessage("");
-  };
+  }, [closeModal, isOpen]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,18 +50,16 @@ export default function BookConsultationButton() {
 
     const formData = new FormData(event.currentTarget);
     const payload = {
-      studentName: formData.get("studentName"),
-      guardianName: formData.get("guardianName"),
-      phone: formData.get("phone"),
+      courseSlug,
+      courseTitle,
+      name: formData.get("name"),
       email: formData.get("email"),
-      preferredDate: formData.get("preferredDate"),
-      preferredTime: formData.get("preferredTime"),
-      program: formData.get("program"),
-      notes: formData.get("notes"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
     };
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -64,15 +70,13 @@ export default function BookConsultationButton() {
           message?: string;
         } | null;
 
-        throw new Error(data?.message ?? "Could not submit appointment.");
+        throw new Error(data?.message ?? "Could not send enquiry.");
       }
 
       setIsSubmitted(true);
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Could not submit appointment.",
+        error instanceof Error ? error.message : "Could not send enquiry.",
       );
     } finally {
       setIsSubmitting(false);
@@ -84,18 +88,14 @@ export default function BookConsultationButton() {
       <button
         type="button"
         onClick={() => {
+          setIsOpen(true);
           setIsSubmitted(false);
           setErrorMessage("");
-          setIsOpen(true);
         }}
-        className="inline-flex items-center justify-center gap-3 rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
       >
-        <CalendarCheck
-          className="h-5 w-5"
-          strokeWidth={2.1}
-          aria-hidden="true"
-        />
-        Book consultation
+        <Send className="h-4 w-4" aria-hidden="true" />
+        Send enquiry
       </button>
 
       {isOpen ? (
@@ -103,55 +103,55 @@ export default function BookConsultationButton() {
           className="fixed inset-0 z-50 flex overflow-y-auto bg-[#0b2349]/60 px-4 py-6 backdrop-blur-sm sm:items-center sm:justify-center"
           role="dialog"
           aria-modal="true"
-          aria-labelledby="consultation-modal-title"
-          onClick={closeForm}
+          aria-labelledby="course-enquiry-title"
+          onClick={closeModal}
         >
           <div
-            className="my-auto w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-[0_32px_80px_rgba(11,35,73,0.28)]"
+            className="my-auto w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-[0_32px_80px_rgba(11,35,73,0.28)]"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4 border-b border-[#dfe6f0] px-5 py-4 sm:px-6">
               <div>
-                <h2
-                  id="consultation-modal-title"
-                  className="text-xl font-black tracking-[-0.04em] text-[#0b2349]"
-                >
-                  Book consultation
-                </h2>
-                <p className="mt-1 text-sm text-[#60708a]">
-                  Fill in your details and our admissions team will contact you.
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0f8b8d]">
+                  Course enquiry
                 </p>
+                <h2
+                  id="course-enquiry-title"
+                  className="mt-1 text-xl font-black tracking-[-0.04em] text-[#0b2349]"
+                >
+                  {courseTitle}
+                </h2>
               </div>
 
               <button
                 type="button"
-                onClick={closeForm}
+                onClick={closeModal}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#dfe6f0] text-[#60708a] transition-colors hover:border-[#0b2349] hover:text-[#0b2349]"
-                aria-label="Close appointment form"
+                aria-label="Close enquiry form"
                 autoFocus
               >
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
             {isSubmitted ? (
               <div className="bg-[#f5f8fc] px-5 py-8 sm:px-6">
                 <div className="rounded-xl border border-[#dfe6f0] bg-white p-5 text-center">
-                  <CalendarCheck
+                  <CheckCircle2
                     className="mx-auto h-10 w-10 text-[#0b2349]"
                     strokeWidth={2.1}
                     aria-hidden="true"
                   />
                   <p className="mt-4 text-lg font-black text-[#0b2349]">
-                    Appointment request received
+                    Enquiry sent
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[#60708a]">
-                    Thank you. Our team will contact you shortly to confirm the
-                    appointment.
+                    Thank you. Our team will review your enquiry and contact you
+                    shortly.
                   </p>
                   <button
                     type="button"
-                    onClick={closeForm}
+                    onClick={closeModal}
                     className="mt-5 inline-flex items-center justify-center rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
                   >
                     Close
@@ -160,27 +160,17 @@ export default function BookConsultationButton() {
               </div>
             ) : (
               <form
-                className="grid gap-4 bg-[#f5f8fc] px-5 py-5 sm:grid-cols-2 sm:px-6"
+                className="grid gap-4 bg-[#f5f8fc] px-5 py-5 sm:px-6"
                 onSubmit={handleSubmit}
               >
                 <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
-                  Student name
+                  Name
                   <input
-                    name="studentName"
+                    name="name"
                     type="text"
                     required
                     className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
-                    placeholder="Enter student name"
-                  />
-                </label>
-
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
-                  Parent / guardian name
-                  <input
-                    name="guardianName"
-                    type="text"
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
-                    placeholder="Enter contact person"
+                    placeholder="Enter your name"
                   />
                 </label>
 
@@ -206,66 +196,27 @@ export default function BookConsultationButton() {
                 </label>
 
                 <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
-                  Preferred date
-                  <input
-                    name="preferredDate"
-                    type="date"
-                    required
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors focus:border-[#0b2349]"
-                  />
-                </label>
-
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
-                  Preferred time
-                  <select
-                    name="preferredTime"
-                    required
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors focus:border-[#0b2349]"
-                  >
-                    <option value="">Select time</option>
-                    <option value="morning">Morning</option>
-                    <option value="afternoon">Afternoon</option>
-                    <option value="evening">Evening</option>
-                  </select>
-                </label>
-
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349] sm:col-span-2">
-                  Program of interest
-                  <select
-                    name="program"
-                    required
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors focus:border-[#0b2349]"
-                  >
-                    <option value="">Select program</option>
-                    <option value="ged">GED Preparation</option>
-                    <option value="language">Language Course</option>
-                    <option value="academic">Academic Support</option>
-                    <option value="other">Other</option>
-                  </select>
-                </label>
-
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349] sm:col-span-2">
-                  Notes
+                  Message
                   <textarea
-                    name="notes"
+                    name="message"
                     rows={4}
                     className="resize-none rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
-                    placeholder="Tell us what you would like to discuss"
+                    placeholder="Tell us what you would like to know"
                   />
                 </label>
 
                 {errorMessage ? (
-                  <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 sm:col-span-2">
+                  <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
                     {errorMessage}
                   </p>
                 ) : null}
 
-                <div className="flex flex-col gap-3 pt-1 sm:col-span-2 sm:flex-row sm:justify-end">
+                <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:justify-end">
                   <button
                     type="button"
-                    onClick={closeForm}
+                    onClick={closeModal}
                     disabled={isSubmitting}
-                    className="inline-flex items-center justify-center rounded-md border border-[#dfe6f0] bg-white px-5 py-3 text-sm font-bold text-[#45566f] transition-colors hover:border-[#0b2349] hover:text-[#0b2349]"
+                    className="inline-flex items-center justify-center rounded-md border border-[#dfe6f0] bg-white px-5 py-3 text-sm font-bold text-[#45566f] transition-colors hover:border-[#0b2349] hover:text-[#0b2349] disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     Cancel
                   </button>
@@ -275,7 +226,7 @@ export default function BookConsultationButton() {
                     className="inline-flex items-center justify-center gap-2 rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
                   >
                     <Send className="h-4 w-4" aria-hidden="true" />
-                    {isSubmitting ? "Sending..." : "Submit appointment"}
+                    {isSubmitting ? "Sending..." : "Send enquiry"}
                   </button>
                 </div>
               </form>
