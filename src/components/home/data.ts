@@ -22,8 +22,8 @@ export const contactDetails = {
   hours: "Mon - Fri 8:30 - 7:00pm",
   phone: "033 045 413",
   phoneHref: "tel:+33 045 413",
-  email: "admin@edukatory.net",
-  emailHref: "mailto:admin@edukatory.net",
+  email: "admin@elspattaya.com",
+  emailHref: "mailto:admin@elspattaya.com",
   locationShort: "Soi Chaiyapruek 2, Pattaya 20150, Thailand",
   locationLong: "Soi Chaiyapruek 2, Pattaya 20150, Thailand",
 };
