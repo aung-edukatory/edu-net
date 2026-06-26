@@ -14,23 +14,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Edukatory | GED preparation and Language Courses",
+  metadataBase: new URL("https://www.elspattaya.com"),
+  title: "ELS Pattaya | GED Preparation and Language Courses",
   description:
-    "Unlock your potential at Edukatory. Get GED preparation and tailored language courses to boost your academic and professional success.",
+    "ELS Pattaya helps students prepare for GED, improve English, and build confidence for future academic success.",
   keywords: [
-    "premium education center Pattaya",
+    "ELS Pattaya",
+    "GED preparation Pattaya",
+    "GED courses Thailand",
+    "English language courses Pattaya",
+    "language school Pattaya",
     "academic support Thailand",
     "structured learning support",
     "student development programs",
     "personalized education support",
     "education pathway Thailand",
-    "learning support center Pattaya",
-    "future ready students",
-    "academic growth support",
-    "English and academic pathways",
   ],
+  alternates: {
+    canonical: "https://www.elspattaya.com/",
+  },
+  openGraph: {
+    title: "ELS Pattaya | GED Preparation and Language Courses",
+    description:
+      "ELS Pattaya helps students prepare for GED, improve English, and build confidence for future academic success.",
+    url: "https://www.elspattaya.com/",
+    siteName: "ELS Pattaya",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ELS Pattaya | GED Preparation and Language Courses",
+    description:
+      "ELS Pattaya helps students prepare for GED, improve English, and build confidence for future academic success.",
+  },
   icons: {
-    icon: "/favicon.png", // or "/favicon.png"
+    icon: "/favicon.png",
   },
 };
 
