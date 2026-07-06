@@ -16,8 +16,8 @@ export default function FooterSection() {
         <div>
           <div className="flex items-center gap-4 bg-white rounded-md">
             <Image
-              src="/edukatory.png"
-              alt="Edukatory logo"
+              src="/els.png"
+              alt="ELS Pattaya"
               width={380}
               height={120}
               style={{width:"auto",height:'auto'}}

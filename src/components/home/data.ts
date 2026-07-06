@@ -10,10 +10,10 @@ export const navigation = [
 ];
 
 export const siteIdentity = {
-  name: "Edukatory",
+  name: "ELS",
   tagline: "GED • English • Academic Pathways",
   footerSummary:
-    "Edukatory is a focused learning school helping students prepare for GED, improve English, and build the confidence needed for future academic success.",
+    "ELS is a focused learning school helping students prepare for GED, improve English, and build the confidence needed for future academic success.",
   footerNote: "Guided learning for GED, English, and academic pathways.",
   copyright: "© 2026 Edukatory",
 };

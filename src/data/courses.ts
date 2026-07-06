@@ -10,7 +10,7 @@ export type CourseCard = {
   mentor: string;
   meta: string;
   image: string;
-  href: string;
+  href?: string;
 };
 
 export const courseTabs: CourseTab[] = [
@@ -60,7 +60,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Managed support for long-term student development",
       meta: "GED",
       image: "/courses/ged/complete-pathway-plus.png",
-      href: "#",
     },
   ],
   "Junior Courses": [
@@ -70,7 +69,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Junior language development",
       meta: "Junior",
       image: "/courses/junior-course/edukids-english-adventure.png",
-      href: "/courses/edukids-english-adventure",
     },
     {
       title: "EDUKIDS THAI ADVENTURE",
@@ -78,7 +76,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Junior language development",
       meta: "Junior",
       image: "/courses/junior-course/edukids-thai-adventure.png",
-      href: "/courses/edukids-thai-adventure",
     },
     {
       title: "EDUKIDS CHINESE ADVENTURE",
@@ -86,7 +83,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Junior language development",
       meta: "Junior",
       image: "/courses/junior-course/edukids-chinese-adventure.png",
-      href: "/courses/edukids-chinese-adventure",
     },
     {
       title: "EDUKIDS ENGLISH WEEKENDER",
@@ -94,7 +90,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Saturday learning option",
       meta: "Junior",
       image: "/courses/junior-course/edukids-english-weekender.png",
-      href: "/courses/edukids-english-weekender",
     },
     {
       title: "EDUKIDS THAI WEEKENDER",
@@ -102,7 +97,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Saturday learning option",
       meta: "Junior",
       image: "/courses/junior-course/edukids-thai-weekender.png",
-      href: "/courses/edukids-thai-weekender",
     },
     {
       title: "EDUKIDS CHINESE WEEKENDER",
@@ -110,7 +104,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Saturday learning option",
       meta: "Junior",
       image: "/courses/junior-course/edukids-chinese-weekender.png",
-      href: "/courses/edukids-chinese-weekender",
     },
   ],
   "Adult Courses": [
@@ -120,7 +113,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Adult language program",
       meta: "Adult",
       image: "/courses/adjust-course/edu-english.png",
-      href: "/courses/edu-english",
     },
     {
       title: "EDU THAI",
@@ -128,7 +120,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Adult language program",
       meta: "Adult",
       image: "/courses/adjust-course/edu-thai.png",
-      href: "/courses/edu-thai",
     },
     {
       title: "EDU CHINESE",
@@ -136,7 +127,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Adult language program",
       meta: "Adult",
       image: "/courses/adjust-course/edu-chinese.png",
-      href: "/courses/edu-chinese",
     },
     {
       title: "EDU BUSINESS ENGLISH",
@@ -144,7 +134,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Workplace communication support",
       meta: "Adult",
       image: "/courses/adjust-course/edu-business-english.png",
-      href: "/courses/edu-business-english",
     },
     {
       title: "EDU ENGLISH ON-LINE",
@@ -152,7 +141,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Online adult language program",
       meta: "Adult",
       image: "/courses/adjust-course/edu-english-online.png",
-      href: "/courses/edu-english-online",
     },
     {
       title: "EDU BUSINESS ONLINE",
@@ -160,7 +148,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Online workplace communication support",
       meta: "Adult",
       image: "/courses/adjust-course/edu-business-online.png",
-      href: "/courses/edu-business-online",
     },
   ],
   "Corporate Courses": [
@@ -170,7 +157,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Institutional English program",
       meta: "Corporate",
       image: "/courses/copoerate-course/EDUCOR-English-In-school.png",
-      href: "/courses/educor-english-in-school",
     },
     {
       title: "EDUCOR BUSINESS ENGLISH IN-SCHOOL",
@@ -178,7 +164,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Institutional business English program",
       meta: "Corporate",
       image: "/courses/copoerate-course/EDUCOR-Business-English-In-School.png",
-      href: "/courses/educor-business-english-in-school",
     },
     {
       title: "EDUCOR ENGLISH ON-SITE",
@@ -186,7 +171,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Corporate language training",
       meta: "Corporate",
       image: "/courses/copoerate-course/EDUCOR-English-On-Site.png",
-      href: "/courses/educor-english-on-site",
     },
     {
       title: "EDUCOR BUSINESS ENGLISH ON-SITE",
@@ -194,7 +178,6 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Corporate workplace communication training",
       meta: "Corporate",
       image: "/courses/copoerate-course/EDUCOR-Business-English-On-Site.png",
-      href: "/courses/educor-business-english-on-site",
     },
   ],
 };

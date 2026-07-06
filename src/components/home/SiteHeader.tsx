@@ -12,8 +12,8 @@ export default function SiteHeader() {
       <Container className="flex flex-col gap-6 py-5 lg:flex-row lg:items-center lg:justify-between">
         <Link href="/" className="flex items-center gap-4">
           <Image
-            src="/edukatory.png"
-            alt="Edukatory logo"
+            src="/els.png"
+            alt="ELS Pattaya"
             width={180}
             height={44}
             style={{ width: 180, height: 44 }}

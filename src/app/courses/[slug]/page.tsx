@@ -4,7 +4,11 @@ import { notFound } from "next/navigation";
 
 import Container from "@/components/Container";
 import CourseEnquiryButton from "@/components/course/CourseEnquiryButton";
-import { courseDetails, coursesByTab } from "@/data/courses";
+import { courseDetails, coursesByTab, type CourseCard } from "@/data/courses";
+
+type LinkedCourseCard = CourseCard & {
+  href: string;
+};
 
 type CourseDetailPageProps = {
   params: Promise<{
@@ -47,7 +51,8 @@ export default async function CourseDetailPage({
   }
 
   const otherGedCourses = coursesByTab.GED.filter(
-    (item) => item.href !== `/courses/${slug}`
+    (item): item is LinkedCourseCard =>
+      Boolean(item.href && item.href !== "#" && item.href !== `/courses/${slug}`)
   );
 
   return (

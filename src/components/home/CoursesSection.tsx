@@ -8,6 +8,9 @@ import Container from "@/components/Container";
 import { courseTabs, coursesByTab, type CourseTab } from "@/data/courses";
 import Icon from "./Icon";
 
+const hasCourseHref = (href?: string): href is string =>
+  Boolean(href && href !== "#");
+
 export default function CoursesSection() {
   const [activeTab, setActiveTab] = useState<CourseTab>("GED");
 
@@ -76,14 +79,16 @@ export default function CoursesSection() {
                   {course.detail}
                 </p>
 
-                <Link
-                  href={course.href}
-                  className="mt-3 inline-flex items-center gap-3 rounded-full bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
-                >
-                  Know more
+                {hasCourseHref(course.href) && (
+                  <Link
+                    href={course.href}
+                    className="mt-3 inline-flex items-center gap-3 rounded-full bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
+                  >
+                    Know more
 
-                  <Icon kind="arrow" className="h-4 w-4" />
-                </Link>
+                    <Icon kind="arrow" className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             </article>
           ))}
