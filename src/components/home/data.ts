@@ -7,6 +7,7 @@ export const navigation = [
   { label: "Programs", href: "/#courses" },
   { label: "Teachers", href: "/#teachers" },
   { label: "News", href: "/#news" },
+  { label: "Contact us", href: "/contact-us" },
 ];
 
 export const siteIdentity = {
@@ -21,11 +22,20 @@ export const siteIdentity = {
 export const contactDetails = {
   hours: "Mon - Fri 8:30 - 7:00pm",
   phone: "033 045 413",
-  phoneHref: "tel:+33 045 413",
+  phoneHref: "tel:+6633045413",
+  whatsapp: "+66 65 502 2088",
+  whatsappHref: "https://wa.me/66655022088",
   email: "admin@elspattaya.com",
   emailHref: "mailto:admin@elspattaya.com",
-  locationShort: "Soi Chaiyapruek 2, Pattaya 20150, Thailand",
-  locationLong: "Soi Chaiyapruek 2, Pattaya 20150, Thailand",
+  instagram: "@edukatorylanguageschool",
+  instagramHref: "https://www.instagram.com/edukatorylanguageschool/",
+  facebook: "ELS Pattaya",
+  facebookHref: "https://www.facebook.com/edukatorylanguageschool",
+  locationShort: "Chaiyapruek 2, Pattaya 20150, Thailand",
+  locationLong:
+    "32/84-85 1-2F Moo 9, Chaiyapruek 2, Nongprue, Banglamung, Chon Buri 20150, Thailand",
+  locationHref:
+    "https://www.google.com/maps/search/?api=1&query=32%2F84-85%201-2F%20Moo%209%2C%20Chaiyapruek%202%2C%20Nongprue%2C%20Banglamung%2C%20Chon%20Buri%2020150%2C%20Thailand",
 };
 
 export const heroSpotlightLeadCard = {
@@ -335,6 +345,7 @@ export const footerLinks: Record<"school" | "support", FooterLink[]> = {
     { label: "Teachers", href: "/#teachers" },
     { label: "News", href: "/#news" },
     { label: "FAQ", href: "/faq" },
+    { label: "Contact us", href: "/contact-us" },
   ],
 };
 

@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/about-us",
+    "/contact-us",
     "/courses/ged-foundation",
     "/courses/ged-fast-track",
     "/courses/ged-pathway",
