@@ -14,13 +14,13 @@ export default function FooterSection() {
     <footer id="contact" className="bg-[#0b2349] text-white">
       <Container className="grid gap-10 py-16 lg:grid-cols-[1.1fr_0.8fr_0.8fr_1fr]">
         <div>
-          <div className="flex items-center gap-4 bg-white rounded-md">
+          <div className="flex items-center gap-4  rounded-md">
             <Image
-              src="/els.png"
+              src="/favicon.png"
               alt="ELS Pattaya"
-              width={380}
+              width={120}
               height={120}
-              style={{width:"auto",height:'auto'}}
+              style={{width:"120",height:'120'}}
               priority
             />
           </div>
