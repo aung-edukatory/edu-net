@@ -79,8 +79,8 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#0e274f] py-24 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,191,31,0.16),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0))]" />
+    <section className="relative overflow-hidden bg-[var(--navy-deep)] py-24 text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(184,139,71,0.16),transparent_28%),linear-gradient(180deg,rgba(252,253,254,0.04),rgba(252,253,254,0))]" />
       <Container className="relative">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-xl">
@@ -93,7 +93,7 @@ export default function TestimonialsSection() {
             <button
               type="button"
               onClick={handlePrevious}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition duration-300 hover:-translate-x-0.5 hover:bg-white hover:text-[#0b2349]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition duration-300 hover:-translate-x-0.5 hover:bg-white hover:text-[var(--navy)]"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -101,7 +101,7 @@ export default function TestimonialsSection() {
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition duration-300 hover:translate-x-0.5 hover:bg-white hover:text-[#0b2349]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition duration-300 hover:translate-x-0.5 hover:bg-white hover:text-[var(--navy)]"
               aria-label="Next testimonial"
             >
               <ChevronRight className="h-5 w-5" />
@@ -128,10 +128,10 @@ export default function TestimonialsSection() {
                       key={`${item.name}-${item.role}-${slideIndex}-${itemIndex}`}
                       className="flex h-full min-h-[360px] flex-col rounded-[28px] border border-white/10 bg-white/8 p-7 backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white/10 sm:min-h-[340px] lg:min-h-[320px]"
                     >
-                      <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#ffbf1f] text-[#0b2349]">
+                      <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--gold)] text-[var(--navy)]">
                         <Quote className="h-5 w-5 fill-current" />
                       </div>
-                      <p className="mt-5 flex-1 text-base leading-8 text-[#dbe6fb]">
+                      <p className="mt-5 flex-1 text-base leading-8 text-[var(--text-inverse-muted)]">
                         {item.quote}
                       </p>
                       <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-5">
@@ -146,7 +146,7 @@ export default function TestimonialsSection() {
                           <div className="font-black tracking-[-0.03em]">
                             {item.name}
                           </div>
-                          <div className="text-sm text-[#b9cae8]">
+                          <div className="text-sm text-[var(--text-inverse-muted)]">
                             {item.role}
                           </div>
                         </div>
@@ -170,7 +170,7 @@ export default function TestimonialsSection() {
                 onMouseLeave={() => setIsPaused(false)}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   currentSlideIndex === index
-                    ? "w-8 bg-[#ffbf1f]"
+                    ? "w-8 bg-[var(--gold)]"
                     : "w-2 bg-white/25 hover:bg-white/50"
                 }`}
                 aria-label={`Go to testimonial slide ${index + 1}`}

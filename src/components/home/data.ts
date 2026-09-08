@@ -57,7 +57,7 @@ export const heroSpotlightActionCards: Array<{
     detail: "Tell us about your goals and academic background. Our advisors will recommend the most suitable ELS pathway for you.",
     href: "#",
     icon: "usersRound",
-    tone: "bg-[linear-gradient(145deg,#4f7cff_0%,#2f62ff_56%,#315cff_100%)]",
+    tone: "bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)]",
   },
   {
     title: "FAQ",
@@ -65,14 +65,14 @@ export const heroSpotlightActionCards: Array<{
       "Find answers to common questions about our programs, admissions, schedules, fees, and student support services.",
     href: "/faq",
     icon: "faq",
-    tone: "bg-[linear-gradient(145deg,#9ed056_0%,#83bd42_55%,#79b63c_100%)]",
+    tone: "bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)]",
   },
   {
     title: "ACADEMIC CALENDAR",
     detail: "View intake dates, academic schedules, holidays, and exam periods to help you plan your learning journey.",
     href: "#",
     icon: "calendar",
-    tone: "bg-[linear-gradient(145deg,#ff646c_0%,#ff4e59_55%,#ff4854_100%)]",
+    tone: "bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)]",
   },
 ];
 

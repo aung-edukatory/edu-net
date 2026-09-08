@@ -92,7 +92,7 @@ export default function CourseEnquiryButton({
           setIsSubmitted(false);
           setErrorMessage("");
         }}
-        className="inline-flex items-center justify-center gap-2 rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
       >
         <Send className="h-4 w-4" aria-hidden="true" />
         Send enquiry
@@ -100,24 +100,24 @@ export default function CourseEnquiryButton({
 
       {isOpen ? (
         <div
-          className="fixed inset-0 z-50 flex overflow-y-auto bg-[#0b2349]/60 px-4 py-6 backdrop-blur-sm sm:items-center sm:justify-center"
+          className="fixed inset-0 z-50 flex overflow-y-auto bg-[var(--navy)]/60 px-4 py-6 backdrop-blur-sm sm:items-center sm:justify-center"
           role="dialog"
           aria-modal="true"
           aria-labelledby="course-enquiry-title"
           onClick={closeModal}
         >
           <div
-            className="my-auto w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-[0_32px_80px_rgba(11,35,73,0.28)]"
+            className="my-auto w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-[0_32px_80px_rgba(2,31,61,0.28)]"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-[#dfe6f0] px-5 py-4 sm:px-6">
+            <div className="flex items-start justify-between gap-4 border-b border-[var(--border)] px-5 py-4 sm:px-6">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0f8b8d]">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--gold-deep)]">
                   Course enquiry
                 </p>
                 <h2
                   id="course-enquiry-title"
-                  className="mt-1 text-xl font-black tracking-[-0.04em] text-[#0b2349]"
+                  className="mt-1 text-xl font-black tracking-[-0.04em] text-[var(--navy)]"
                 >
                   {courseTitle}
                 </h2>
@@ -126,7 +126,7 @@ export default function CourseEnquiryButton({
               <button
                 type="button"
                 onClick={closeModal}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#dfe6f0] text-[#60708a] transition-colors hover:border-[#0b2349] hover:text-[#0b2349]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted)] transition-colors hover:border-[var(--navy)] hover:text-[var(--navy)]"
                 aria-label="Close enquiry form"
                 autoFocus
               >
@@ -135,24 +135,24 @@ export default function CourseEnquiryButton({
             </div>
 
             {isSubmitted ? (
-              <div className="bg-[#f5f8fc] px-5 py-8 sm:px-6">
-                <div className="rounded-xl border border-[#dfe6f0] bg-white p-5 text-center">
+              <div className="bg-[var(--surface)] px-5 py-8 sm:px-6">
+                <div className="rounded-xl border border-[var(--border)] bg-white p-5 text-center">
                   <CheckCircle2
-                    className="mx-auto h-10 w-10 text-[#0b2349]"
+                    className="mx-auto h-10 w-10 text-[var(--navy)]"
                     strokeWidth={2.1}
                     aria-hidden="true"
                   />
-                  <p className="mt-4 text-lg font-black text-[#0b2349]">
+                  <p className="mt-4 text-lg font-black text-[var(--navy)]">
                     Enquiry sent
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-[#60708a]">
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
                     Thank you. Our team will review your enquiry and contact you
                     shortly.
                   </p>
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="mt-5 inline-flex items-center justify-center rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5"
+                    className="mt-5 inline-flex items-center justify-center rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
                   >
                     Close
                   </button>
@@ -160,47 +160,47 @@ export default function CourseEnquiryButton({
               </div>
             ) : (
               <form
-                className="grid gap-4 bg-[#f5f8fc] px-5 py-5 sm:px-6"
+                className="grid gap-4 bg-[var(--surface)] px-5 py-5 sm:px-6"
                 onSubmit={handleSubmit}
               >
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
+                <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
                   Name
                   <input
                     name="name"
                     type="text"
                     required
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
+                    className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors placeholder:text-[var(--muted)] focus:border-[var(--navy)]"
                     placeholder="Enter your name"
                   />
                 </label>
 
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
+                <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
                   Phone number
                   <input
                     name="phone"
                     type="tel"
                     required
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
+                    className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors placeholder:text-[var(--muted)] focus:border-[var(--navy)]"
                     placeholder="+66 ..."
                   />
                 </label>
 
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
+                <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
                   Email
                   <input
                     name="email"
                     type="email"
-                    className="rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
+                    className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors placeholder:text-[var(--muted)] focus:border-[var(--navy)]"
                     placeholder="name@example.com"
                   />
                 </label>
 
-                <label className="grid gap-2 text-sm font-bold text-[#0b2349]">
+                <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
                   Message
                   <textarea
                     name="message"
                     rows={4}
-                    className="resize-none rounded-md border border-[#dfe6f0] bg-white px-4 py-3 text-sm font-medium text-[#0b2349] outline-none transition-colors placeholder:text-[#8c9bb0] focus:border-[#0b2349]"
+                    className="resize-none rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors placeholder:text-[var(--muted)] focus:border-[var(--navy)]"
                     placeholder="Tell us what you would like to know"
                   />
                 </label>
@@ -216,14 +216,14 @@ export default function CourseEnquiryButton({
                     type="button"
                     onClick={closeModal}
                     disabled={isSubmitting}
-                    className="inline-flex items-center justify-center rounded-md border border-[#dfe6f0] bg-white px-5 py-3 text-sm font-bold text-[#45566f] transition-colors hover:border-[#0b2349] hover:text-[#0b2349] disabled:cursor-not-allowed disabled:opacity-70"
+                    className="inline-flex items-center justify-center rounded-md border border-[var(--border)] bg-white px-5 py-3 text-sm font-bold text-[var(--muted)] transition-colors hover:border-[var(--navy)] hover:text-[var(--navy)] disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-2 rounded-md bg-[#ffbf1f] px-5 py-3 text-sm font-bold text-[#0b2349] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                    className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
                   >
                     <Send className="h-4 w-4" aria-hidden="true" />
                     {isSubmitting ? "Sending..." : "Send enquiry"}

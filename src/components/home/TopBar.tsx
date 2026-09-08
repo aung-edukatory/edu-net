@@ -5,7 +5,7 @@ import Icon from "./Icon";
 
 export default function TopBar() {
   return (
-    <div className="bg-[#0b2349] text-white">
+    <div className="bg-[var(--navy)] text-white">
       <Container className="flex flex-col gap-3 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.2em] sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-4 text-white/75">
           <span className="inline-flex items-center gap-2">
@@ -20,14 +20,14 @@ export default function TopBar() {
         <div className="flex flex-wrap items-center gap-4 text-white/90">
           <a
             href={contactDetails.phoneHref}
-            className="inline-flex items-center gap-2 transition-colors hover:text-[#ffbf1f]"
+            className="inline-flex items-center gap-2 transition-colors hover:text-[var(--gold)]"
           >
             <Icon kind="phone" className="h-4 w-4" />
             {contactDetails.phone}
           </a>
           <a
             href={contactDetails.emailHref}
-            className="inline-flex items-center gap-2 transition-colors hover:text-[#ffbf1f]"
+            className="inline-flex items-center gap-2 transition-colors hover:text-[var(--gold)]"
           >
             <Icon kind="mail" className="h-4 w-4" />
             {contactDetails.email}

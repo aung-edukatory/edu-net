@@ -250,15 +250,15 @@ const faqSections = [
 export default function FAQPage() {
   return (
     <main className="bg-white">
-      <section className="bg-[#f6f9fc] px-6 py-20">
+      <section className="bg-[var(--surface)] px-6 py-20">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#0f8b8d]">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--gold-deep)]">
             FAQ
           </p>
-          <h1 className="text-4xl font-bold text-[#0b2349] md:text-5xl">
+          <h1 className="text-4xl font-bold text-[var(--navy)] md:text-5xl">
             Frequently Asked Questions
           </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[#5f6f86]">
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[var(--muted)]">
             Find answers to common questions about Edukatory Language School,
             including English development, GED preparation, university pathways,
             assessment, enrollment, tuition, and academic support.
@@ -270,7 +270,7 @@ export default function FAQPage() {
         <div className="mx-auto max-w-5xl space-y-12">
           {faqSections.map((section, sectionIndex) => (
             <div key={section.title}>
-              <h2 className="mb-5 text-2xl font-bold text-[#0b2349]">
+              <h2 className="mb-5 text-2xl font-bold text-[var(--navy)]">
                 {section.title}
               </h2>
               <div className="space-y-4">
@@ -280,7 +280,7 @@ export default function FAQPage() {
                   return (
                     <div
                       key={faq.question}
-                      className="rounded-2xl border border-[#e7edf5] bg-white p-6 shadow-sm transition-all duration-300 has-[:checked]:border-[#0f8b8d]/30 has-[:checked]:shadow-md"
+                      className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm transition-all duration-300 has-[:checked]:border-[var(--gold-deep)]/30 has-[:checked]:shadow-md"
                     >
                       <input
                         id={accordionId}
@@ -291,17 +291,17 @@ export default function FAQPage() {
 
                       <label
                         htmlFor={accordionId}
-                        className="flex cursor-pointer items-center justify-between gap-5 text-lg font-semibold text-[#0b2349]"
+                        className="flex cursor-pointer items-center justify-between gap-5 text-lg font-semibold text-[var(--navy)]"
                       >
                         <span>{faq.question}</span>
 
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f6f9fc] text-xl text-[#0f8b8d] transition-transform duration-300">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--surface)] text-xl text-[var(--gold-deep)] transition-transform duration-300">
                           +
                         </span>
                       </label>
 
                       <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out peer-checked:max-h-[500px] peer-checked:opacity-100">
-                        <p className="mt-4 border-t border-[#e7edf5] pt-4 leading-7 text-[#5f6f86]">
+                        <p className="mt-4 border-t border-[var(--border)] pt-4 leading-7 text-[var(--muted)]">
                           {faq.answer}
                         </p>
                       </div>

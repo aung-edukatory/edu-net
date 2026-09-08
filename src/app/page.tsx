@@ -18,7 +18,7 @@ import {
 
 export default function Home() {
   return (
-    <main id="top" className="bg-white text-[#10233f]">
+    <main id="top" className="bg-white text-[var(--navy)]">
       
       <HeroSection />
       <StatsSection />

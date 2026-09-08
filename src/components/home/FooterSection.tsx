@@ -11,7 +11,7 @@ import Image from "next/image";
 
 export default function FooterSection() {
   return (
-    <footer id="contact" className="bg-[#0b2349] text-white">
+    <footer id="contact" className="bg-[var(--navy)] text-white">
       <Container className="grid gap-10 py-16 lg:grid-cols-[1.1fr_0.8fr_0.8fr_1fr]">
         <div>
           <div className="flex items-center gap-4  rounded-md">
@@ -24,7 +24,7 @@ export default function FooterSection() {
               priority
             />
           </div>
-          <p className="mt-5 max-w-sm text-sm leading-7 text-[#c9d7ef]">
+          <p className="mt-5 max-w-sm text-sm leading-7 text-[var(--text-inverse-muted)]">
             {siteIdentity.footerSummary}
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -44,10 +44,10 @@ export default function FooterSection() {
         </div>
 
         <div>
-          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-[#ffbf1f]">
+          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--gold)]">
             School
           </h2>
-          <div className="mt-5 space-y-3 text-sm text-[#d8e3f8]">
+          <div className="mt-5 space-y-3 text-sm text-[var(--text-inverse-muted)]">
             {footerLinks.school.map((item) =>
               item.disabled ? (
                 <span
@@ -71,10 +71,10 @@ export default function FooterSection() {
         </div>
 
         <div>
-          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-[#ffbf1f]">
+          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--gold)]">
             Support
           </h2>
-          <div className="mt-5 space-y-3 text-sm text-[#d8e3f8]">
+          <div className="mt-5 space-y-3 text-sm text-[var(--text-inverse-muted)]">
             {footerLinks.support.map((item) =>
               item.disabled ? (
                 <span
@@ -98,10 +98,10 @@ export default function FooterSection() {
         </div>
 
         <div>
-          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-[#ffbf1f]">
+          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--gold)]">
             Contact us
           </h2>
-          <div className="mt-5 space-y-4 text-sm text-[#d8e3f8]">
+          <div className="mt-5 space-y-4 text-sm text-[var(--text-inverse-muted)]">
             <a
               href={contactDetails.phoneHref}
               className="flex items-start gap-3 transition-colors hover:text-white"
@@ -125,7 +125,7 @@ export default function FooterSection() {
       </Container>
 
       <Container className="border-t border-white/10 py-6">
-        <div className="flex flex-col gap-2 text-sm text-[#b8c9e8] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 text-sm text-[var(--text-inverse-muted)] sm:flex-row sm:items-center sm:justify-between">
           <p>{siteIdentity.copyright}</p>
           <p>{siteIdentity.footerNote}</p>
         </div>

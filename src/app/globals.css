@@ -1,30 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* Palette from image */
-  --charcoal: #36454F;
-  --navy: #061E45;
-  --light: #C3E3EB;
+  /* New logo palette */
+  --navy: #021F3D;
+  --navy-deep: #041430;
+  --gold: #B88B47;
+  --gold-light: #CBA05C;
+  --gold-deep: #AA7C36;
+  --light: #FCFDFE;
 
-  /* App tokens */
-  --background: #C3E3EB;
-  --foreground: #061E45;
-  --muted: #36454F;
-  --border: rgba(6, 30, 69, 0.12);
-  --surface: #E6F3F7;
-  --surface-strong: #ffffff;
-
-  /* Brand / accent (minimalist navy-forward) */
-  --brand: #061E45;
-  --brand-strong: #061E45;
-  --brand-soft: #C3E3EB;
-  --accent: #36454F;
-  --accent-strong: #2A363E;
-
-  --color-night: #061E45;
+  /* Shared app colors, including subtle palette-derived surfaces. */
+  --background: var(--light);
+  --foreground: var(--navy);
+  --muted: color-mix(in srgb, var(--navy) 75%, var(--light));
+  --border: color-mix(in srgb, var(--navy) 14%, var(--light));
+  --surface: color-mix(in srgb, var(--gold) 7%, var(--light));
+  --surface-strong: var(--light);
+  --surface-muted: color-mix(in srgb, var(--navy) 8%, var(--light));
+  --text-inverse-muted: color-mix(in srgb, var(--light) 82%, var(--navy));
+  --brand: var(--navy);
+  --brand-strong: var(--navy-deep);
+  --brand-soft: var(--surface);
+  --accent: var(--gold);
+  --accent-strong: var(--gold-deep);
+  --color-night: var(--navy-deep);
 }
 
 @theme inline {
+  --color-white: var(--light);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -53,6 +56,6 @@ a {
 }
 
 ::selection {
-  background: rgba(54, 69, 79, 0.3);
-  color: #061E45;
+  background: color-mix(in srgb, var(--gold-light) 40%, transparent);
+  color: var(--navy);
 }

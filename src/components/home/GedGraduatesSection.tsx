@@ -108,10 +108,10 @@ export default function GedGraduatesSection() {
     <section id="ged-graduates" className="bg-white py-24">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-black tracking-[-0.05em] text-[#0b2349] sm:text-4xl">
+          <h2 className="text-3xl font-black tracking-[-0.05em] text-[var(--navy)] sm:text-4xl">
             GED Graduates
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[#60708a]">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">
             A few of our recent GED success stories and achievement highlights.
           </p>
 
@@ -126,8 +126,8 @@ export default function GedGraduatesSection() {
                 }}
                 className={`rounded-full px-6 py-2 text-sm font-semibold transition-all ${
                   activeTab === year
-                    ? "bg-[#0b2349] text-white shadow-[0_10px_30px_rgba(11,35,73,0.18)]"
-                    : "bg-[#edf2f7] text-[#0b2349] hover:bg-[#dbe5f0]"
+                    ? "bg-[var(--navy)] text-white shadow-[0_10px_30px_rgba(2,31,61,0.18)]"
+                    : "bg-[var(--surface-muted)] text-[var(--navy)] hover:bg-[var(--surface-muted)]"
                 }`}
               >
                 {year}
@@ -144,8 +144,8 @@ export default function GedGraduatesSection() {
             >
               {gedGraduateImages.map((item) => (
                 <div key={item.src} className="min-w-full px-3 sm:min-w-1/2 lg:min-w-1/4">
-                  <article className="group overflow-hidden rounded-[28px] border border-[#d9e2ee] bg-white shadow-[0_18px_48px_rgba(11,35,73,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(11,35,73,0.14)]">
-                    <div className="relative aspect-[1/1.22] overflow-hidden bg-[#0b2349]">
+                  <article className="group overflow-hidden rounded-[28px] border border-[var(--border)] bg-white shadow-[0_18px_48px_rgba(2,31,61,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(2,31,61,0.14)]">
+                    <div className="relative aspect-[1/1.22] overflow-hidden bg-[var(--navy)]">
                       <Image
                         src={item.src}
                         alt={item.alt}
@@ -164,7 +164,7 @@ export default function GedGraduatesSection() {
             type="button"
             aria-label="Previous graduate"
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[#0b2349] shadow-[0_12px_30px_rgba(11,35,73,0.18)] transition hover:bg-[#0b2349] hover:text-white"
+            className="absolute left-0 top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[var(--navy)] shadow-[0_12px_30px_rgba(2,31,61,0.18)] transition hover:bg-[var(--navy)] hover:text-white"
           >
             <ChevronLeft/>
           </button>
@@ -172,7 +172,7 @@ export default function GedGraduatesSection() {
             type="button"
             aria-label="Next graduate"
             onClick={goToNext}
-            className="absolute right-0 top-1/2 z-10 flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[#0b2349] shadow-[0_12px_30px_rgba(11,35,73,0.18)] transition hover:bg-[#0b2349] hover:text-white"
+            className="absolute right-0 top-1/2 z-10 flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[var(--navy)] shadow-[0_12px_30px_rgba(2,31,61,0.18)] transition hover:bg-[var(--navy)] hover:text-white"
           >
             <ChevronRight/>
           </button>
@@ -185,7 +185,7 @@ export default function GedGraduatesSection() {
                 aria-label={`Go to graduate slide ${index + 1}`}
                 onClick={() => setCurrentIndex(index)}
                 className={`h-2.5 rounded-full transition-all ${
-                  currentIndex === index ? "w-8 bg-[#0b2349]" : "w-2.5 bg-[#c8d3e2]"
+                  currentIndex === index ? "w-8 bg-[var(--navy)]" : "w-2.5 bg-[var(--surface-muted)]"
                 }`}
               />
             ))}

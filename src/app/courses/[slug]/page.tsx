@@ -57,24 +57,24 @@ export default async function CourseDetailPage({
 
   return (
     <main className="bg-white">
-      <section className="bg-[#f1f5fa] py-20 sm:py-24">
+      <section className="bg-[var(--surface)] py-20 sm:py-24">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#0f8b8d]">
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[var(--gold-deep)]">
                 {course.category}
               </p>
 
-              <h1 className="text-4xl font-black tracking-[-0.05em] text-[#0b2349] sm:text-5xl">
+              <h1 className="text-4xl font-black tracking-[-0.05em] text-[var(--navy)] sm:text-5xl">
                 {course.title}
               </h1>
 
-              <p className="mt-6 text-lg leading-8 text-[#60708a]">
+              <p className="mt-6 text-lg leading-8 text-[var(--muted)]">
                 {course.subtitle}
               </p>
 
               {course.duration && (
-                <div className="mt-8 inline-flex rounded-full bg-white px-5 py-3 text-sm font-bold text-[#0b2349] shadow-sm">
+                <div className="mt-8 inline-flex rounded-full bg-white px-5 py-3 text-sm font-bold text-[var(--navy)] shadow-sm">
                   Duration: {course.duration}
                 </div>
               )}
@@ -96,11 +96,11 @@ export default async function CourseDetailPage({
       <section className="py-16 sm:py-20">
         <Container>
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-3xl font-black tracking-[-0.04em] text-[#0b2349]">
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-[var(--navy)]">
               Program Overview
             </h2>
 
-            <div className="mt-6 space-y-5 text-base leading-8 text-[#60708a]">
+            <div className="mt-6 space-y-5 text-base leading-8 text-[var(--muted)]">
               {course.overview.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -110,10 +110,10 @@ export default async function CourseDetailPage({
       </section>
 
       {course.whoIsThisFor?.length > 0 && (
-        <section className="bg-[#f1f5fa] py-16 sm:py-20">
+        <section className="bg-[var(--surface)] py-16 sm:py-20">
           <Container>
             <div className="mx-auto max-w-4xl">
-              <h2 className="text-3xl font-black tracking-[-0.04em] text-[#0b2349]">
+              <h2 className="text-3xl font-black tracking-[-0.04em] text-[var(--navy)]">
                 Who Is This Program For?
               </h2>
 
@@ -121,7 +121,7 @@ export default async function CourseDetailPage({
                 {course.whoIsThisFor.map((item) => (
                   <div
                     key={item}
-                    className="rounded-2xl border border-[#d9e2ee] bg-white p-5 text-sm leading-7 text-[#60708a] shadow-sm"
+                    className="rounded-2xl border border-[var(--border)] bg-white p-5 text-sm leading-7 text-[var(--muted)] shadow-sm"
                   >
                     {item}
                   </div>
@@ -138,11 +138,11 @@ export default async function CourseDetailPage({
             <div className="mx-auto max-w-4xl space-y-10">
               {course.sections.map((section) => (
                 <div key={section.heading}>
-                  <h2 className="text-2xl font-black tracking-[-0.04em] text-[#0b2349]">
+                  <h2 className="text-2xl font-black tracking-[-0.04em] text-[var(--navy)]">
                     {section.heading}
                   </h2>
 
-                  <div className="mt-5 space-y-4 text-base leading-8 text-[#60708a]">
+                  <div className="mt-5 space-y-4 text-base leading-8 text-[var(--muted)]">
                     {section.content.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
@@ -154,17 +154,17 @@ export default async function CourseDetailPage({
         </section>
       )}
 
-      <section className="border-y border-[#dfe6f0] bg-white py-12">
+      <section className="border-y border-[var(--border)] bg-white py-12">
         <Container>
           <div className="mx-auto flex max-w-4xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#0f8b8d]">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[var(--gold-deep)]">
                 Course enquiry
               </p>
-              <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-[#0b2349]">
+              <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-[var(--navy)]">
                 Have questions about {course.title}?
               </h2>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-[#60708a]">
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[var(--muted)]">
                 Send us your enquiry and our admissions team will help you with
                 program details, schedule, and next steps.
               </p>
@@ -178,18 +178,18 @@ export default async function CourseDetailPage({
         </Container>
       </section>
 
-      <section className="bg-[#f1f5fa] py-16 sm:py-20">
+      <section className="bg-[var(--surface)] py-16 sm:py-20">
         <Container>
           <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-[#0f8b8d]">
+              <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-[var(--gold-deep)]">
                 GED Programs
               </p>
-              <h2 className="text-3xl font-black tracking-[-0.04em] text-[#0b2349]">
+              <h2 className="text-3xl font-black tracking-[-0.04em] text-[var(--navy)]">
                 Other GED Courses
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#60708a]">
+            <p className="max-w-2xl text-base leading-7 text-[var(--muted)]">
               Explore related GED pathways designed for different levels of
               readiness, support, and university progression goals.
             </p>
@@ -200,9 +200,9 @@ export default async function CourseDetailPage({
               <Link
                 key={item.href}
                 href={item.href}
-                className="group rounded-3xl border border-[#d9e2ee] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="group rounded-3xl border border-[var(--border)] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="relative h-36 overflow-hidden rounded-2xl bg-[#f6f9fc]">
+                <div className="relative h-36 overflow-hidden rounded-2xl bg-[var(--surface)]">
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -210,16 +210,16 @@ export default async function CourseDetailPage({
                     className="object-contain p-3 transition duration-300 group-hover:scale-105"
                   />
                 </div>
-                <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#0f8b8d]">
+                <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-deep)]">
                   {item.meta}
                 </p>
-                <h3 className="mt-2 text-lg font-black text-[#0b2349]">
+                <h3 className="mt-2 text-lg font-black text-[var(--navy)]">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-[#60708a]">
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
                   {item.detail}
                 </p>
-                <span className="mt-5 inline-flex text-sm font-bold text-[#0b2349] transition group-hover:text-[#0f8b8d]">
+                <span className="mt-5 inline-flex text-sm font-bold text-[var(--navy)] transition group-hover:text-[var(--gold-deep)]">
                   Know more →
                 </span>
               </Link>
