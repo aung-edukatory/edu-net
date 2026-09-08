@@ -132,7 +132,7 @@ export default function ContactUsPage() {
             href={contactDetails.locationHref}
             target="_blank"
             rel="noreferrer"
-            className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-black text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+            className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-black text-white transition-transform hover:-translate-y-0.5"
           >
             <MapPin className="h-4 w-4" aria-hidden="true" />
             Get directions

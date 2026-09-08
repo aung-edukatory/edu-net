@@ -15,7 +15,7 @@ export default function ResourcesSection() {
 
           <a
             href="#contact"
-            className="inline-flex items-center justify-center rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
           >
             Browse all
           </a>
@@ -46,7 +46,7 @@ export default function ResourcesSection() {
                 </div>
                 <a
                   href="#contact"
-                  className="rounded-full bg-[var(--gold)] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--navy)]"
+                  className="rounded-full bg-[var(--gold)] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white"
                 >
                   Buy now
                 </a>

@@ -30,7 +30,7 @@ export default function HeroSection() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
               href="#courses"
-              className="inline-flex items-center justify-center gap-3 rounded-md bg-[var(--gold)] px-6 py-4 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 rounded-md bg-[var(--gold)] px-6 py-4 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
             >
               <Icon kind="send" className="h-5 w-5" />
               Explore Pathways

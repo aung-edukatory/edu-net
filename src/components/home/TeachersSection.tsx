@@ -23,7 +23,7 @@ export default function TeachersSection() {
           </p>
           {/* <a
             href="#news"
-            className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+            className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
           >
             View all
             <Icon kind="arrow" className="h-4 w-4" />

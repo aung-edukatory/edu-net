@@ -16,14 +16,19 @@ import {
   TopBar,
 } from "@/components/home";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ course?: string | string[] }>;
+}) {
+  const { course } = await searchParams;
   return (
     <main id="top" className="bg-white text-[var(--navy)]">
       
       <HeroSection />
       <StatsSection />
       <AboutSection />
-      <CoursesSection />
+      <CoursesSection initialTab={course === "junior" ? "Junior Courses" : "GED"} />
       <GedGraduatesSection />
       {/* <CampusSection /> */}
       <TeachersSection />

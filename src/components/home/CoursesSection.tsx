@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Container from "@/components/Container";
 import { courseTabs, coursesByTab, type CourseTab } from "@/data/courses";
@@ -11,8 +11,23 @@ import Icon from "./Icon";
 const hasCourseHref = (href?: string): href is string =>
   Boolean(href && href !== "#");
 
-export default function CoursesSection() {
-  const [activeTab, setActiveTab] = useState<CourseTab>("GED");
+export default function CoursesSection({
+  initialTab = "GED",
+}: {
+  initialTab?: CourseTab;
+}) {
+  const [activeTab, setActiveTab] = useState<CourseTab>(initialTab);
+
+  useEffect(() => {
+    const showGed = () => setActiveTab("GED");
+    const showJunior = () => setActiveTab("Junior Courses");
+    window.addEventListener("els:show-ged", showGed);
+    window.addEventListener("els:show-junior", showJunior);
+    return () => {
+      window.removeEventListener("els:show-ged", showGed);
+      window.removeEventListener("els:show-junior", showJunior);
+    };
+  }, []);
 
   const activeCourses = useMemo(() => coursesByTab[activeTab], [activeTab]);
 
@@ -82,7 +97,7 @@ export default function CoursesSection() {
                 {hasCourseHref(course.href) && (
                   <Link
                     href={course.href}
-                    className="mt-3 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+                    className="mt-3 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
                   >
                     Know more
 

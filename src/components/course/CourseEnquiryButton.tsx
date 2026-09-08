@@ -92,7 +92,7 @@ export default function CourseEnquiryButton({
           setIsSubmitted(false);
           setErrorMessage("");
         }}
-        className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
       >
         <Send className="h-4 w-4" aria-hidden="true" />
         Send enquiry
@@ -152,7 +152,7 @@ export default function CourseEnquiryButton({
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="mt-5 inline-flex items-center justify-center rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+                    className="mt-5 inline-flex items-center justify-center rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
                   >
                     Close
                   </button>
@@ -223,7 +223,7 @@ export default function CourseEnquiryButton({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                    className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
                   >
                     <Send className="h-4 w-4" aria-hidden="true" />
                     {isSubmitting ? "Sending..." : "Send enquiry"}

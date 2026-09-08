@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,6 +28,35 @@ export default function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
+              onClick={(event) => {
+                if (
+                  (item.label === "Programs" || item.label === "Courses") &&
+                  !event.ctrlKey &&
+                  !event.metaKey &&
+                  !event.shiftKey &&
+                  !event.altKey
+                ) {
+                  const section = document.getElementById("courses");
+                  const bounds = section?.getBoundingClientRect();
+                  const headerBottom =
+                    event.currentTarget.closest("header")?.getBoundingClientRect().bottom ?? 0;
+
+                  // Switch tabs in place when the visitor is already in this section.
+                  if (bounds && bounds.top <= headerBottom && bounds.bottom > headerBottom) {
+                    event.preventDefault();
+                    const target = new URL(item.href, window.location.href);
+                    if (target.href !== window.location.href) {
+                      window.history.pushState(null, "", target.href);
+                    }
+                  }
+
+                  window.dispatchEvent(
+                    new Event(
+                      item.label === "Courses" ? "els:show-junior" : "els:show-ged",
+                    ),
+                  );
+                }
+              }}
               className="transition-colors hover:text-[var(--navy)]"
             >
               {item.label}

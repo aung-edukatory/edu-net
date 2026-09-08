@@ -3,7 +3,7 @@ import type { IconKind } from "./types";
 export const navigation = [
   // { label: "Home", href: "#top" },
   { label: "About", href: "/#about" },
-  { label: "Courses", href: "/#courses" },
+  { label: "Courses", href: "/?course=junior#courses" },
   { label: "Programs", href: "/#courses" },
   { label: "Teachers", href: "/#teachers" },
   { label: "News", href: "/#news" },

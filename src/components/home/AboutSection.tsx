@@ -27,7 +27,7 @@ export default function AboutSection() {
           </p>
           <a
             href="/about-us"
-            className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+            className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
           >
             Learn more
             <Icon kind="arrow" className="h-4 w-4" />
@@ -79,7 +79,7 @@ export default function AboutSection() {
             </p>
             <a
               href={card.href}
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-[var(--navy)] transition-transform hover:-translate-y-0.5"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
             >
               {card.label}
             </a>

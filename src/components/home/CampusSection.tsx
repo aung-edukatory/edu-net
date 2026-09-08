@@ -17,7 +17,7 @@ export default function CampusSection() {
           <div className="absolute bottom-28 left-[64%] h-60 w-14 bg-white/42" />
           <button
             type="button"
-            className="absolute left-8 top-1/2 inline-flex h-20 w-20 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--gold)] text-[var(--navy)] shadow-[0_18px_42px_rgba(2,31,61,0.18)]"
+            className="absolute left-8 top-1/2 inline-flex h-20 w-20 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--gold)] text-white shadow-[0_18px_42px_rgba(2,31,61,0.18)]"
             aria-label="Play campus video"
           >
             <svg
