@@ -4,7 +4,7 @@ import { getPayload } from "payload";
 
 import config from "@payload-config";
 import { graduateTabs } from "@/components/home/GedGraduatesSection";
-import { newsStories, partners } from "@/components/home/data";
+import { newsStories, partners, testimonials } from "@/components/home/data";
 import { courseDetails, coursesByTab } from "@/data/courses";
 
 const payload = await getPayload({ config });
@@ -25,7 +25,7 @@ async function media(relativePath: string, alt: string) {
 }
 
 async function isEmpty(
-  collection: "graduates" | "courses" | "news" | "partners",
+  collection: "graduates" | "courses" | "news" | "partners" | "testimonials",
 ) {
   const result = await payload.count({ collection, overrideAccess: true });
   return result.totalDocs === 0;
@@ -116,6 +116,17 @@ if (await isEmpty("partners")) {
         order,
         _status: "published",
       },
+      draft: false,
+      overrideAccess: true,
+    });
+  }
+}
+
+if (await isEmpty("testimonials")) {
+  for (const [order, testimonial] of testimonials.entries()) {
+    await payload.create({
+      collection: "testimonials",
+      data: { ...testimonial, order, _status: "published" },
       draft: false,
       overrideAccess: true,
     });

@@ -20,6 +20,7 @@ import {
   getCmsGraduates,
   getCmsNews,
   getCmsPartners,
+  getCmsTestimonials,
 } from "@/lib/cms/content";
 
 export const dynamic = "force-dynamic";
@@ -30,11 +31,12 @@ export default async function Home({
   searchParams: Promise<{ course?: string | string[] }>;
 }) {
   const { course } = await searchParams;
-  const [courses, graduates, news, partners] = await Promise.all([
+  const [courses, graduates, news, partners, testimonials] = await Promise.all([
     getCmsCourseCards(),
     getCmsGraduates(),
     getCmsNews(),
     getCmsPartners(),
+    getCmsTestimonials(),
   ]);
   return (
     <main id="top" className="bg-white text-[var(--navy)]">
@@ -51,7 +53,7 @@ export default async function Home({
       <TeachersSection />
       <TeacherCtaSection />
       {/* <ResourcesSection /> */}
-      <TestimonialsSection />
+      <TestimonialsSection items={testimonials ?? undefined} />
       <NewsSection stories={news ?? undefined} />
       <PartnersSection items={partners ?? undefined} />
      

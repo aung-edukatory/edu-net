@@ -3,7 +3,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Course, Graduate, Media, News, Partner } from "@/payload-types";
 import type { CourseCard, CourseTab } from "@/data/courses";
-import type { NewsStory } from "@/components/home/data";
+import type { NewsStory, TestimonialItem } from "@/components/home/data";
 
 export type CmsCourseDetail = {
   slug: string;
@@ -25,7 +25,7 @@ const mediaValue = (value: number | Media) =>
     ? { url: value.url, alt: value.alt }
     : null;
 
-async function published<T extends "graduates" | "courses" | "news" | "partners">(
+async function published<T extends "graduates" | "courses" | "news" | "partners" | "testimonials">(
   collection: T,
 ) {
   const payload = await getPayload({ config });
@@ -179,6 +179,18 @@ export async function getCmsPartners(): Promise<CmsPartner[] | null> {
     return partners.length ? partners : null;
   } catch (error) {
     console.error("Could not load partners from Payload", error);
+    return null;
+  }
+}
+
+export async function getCmsTestimonials(): Promise<TestimonialItem[] | null> {
+  try {
+    const { docs } = await published("testimonials");
+    return docs.length
+      ? docs.map(({ name, role, quote }) => ({ name, role, quote }))
+      : null;
+  } catch (error) {
+    console.error("Could not load testimonials from Payload", error);
     return null;
   }
 }

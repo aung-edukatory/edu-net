@@ -61,7 +61,6 @@ export default function AboutSection() {
             ))}
           </div>
 
-          <div className="pointer-events-none absolute -bottom-6 -right-6 hidden h-28 w-28 rounded-[32px] bg-[linear-gradient(145deg,var(--gold-light),var(--gold-deep)_55%,var(--navy))] shadow-[0_20px_40px_rgba(2,31,61,0.18)] sm:block" />
         </div>
       </Container>
 

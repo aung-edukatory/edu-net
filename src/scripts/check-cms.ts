@@ -10,6 +10,7 @@ const collections = [
   "courses",
   "news",
   "partners",
+  "testimonials",
 ] as const;
 
 for (const collection of collections) {

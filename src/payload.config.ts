@@ -11,6 +11,7 @@ import { Graduates } from "@/collections/Graduates";
 import { Media } from "@/collections/Media";
 import { News } from "@/collections/News";
 import { Partners } from "@/collections/Partners";
+import { Testimonials } from "@/collections/Testimonials";
 import { Users } from "@/collections/Users";
 
 const filename = fileURLToPath(import.meta.url);
@@ -32,9 +33,14 @@ export default buildConfig({
         Icon: "/src/components/admin/Branding#Icon",
       },
     },
-    meta: { titleSuffix: " — ELS Content Manager" },
+    meta: {
+      titleSuffix: " — ELS Content Manager",
+      icons: {
+        icon: [{ url: "/favicon.png", type: "image/png" }],
+      },
+    },
   },
-  collections: [Users, Media, Graduates, Courses, News, Partners],
+  collections: [Users, Media, Graduates, Courses, News, Partners, Testimonials],
   db: postgresAdapter({
     pool: { connectionString: requiredEnv("DATABASE_URL") },
   }),

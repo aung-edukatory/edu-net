@@ -233,7 +233,9 @@ export const books = [
   },
 ];
 
-export const testimonials = [
+export type TestimonialItem = { name: string; role: string; quote: string };
+
+export const testimonials: TestimonialItem[] = [
   {
     quote:
       "I express my deep gratitude to my teachers for their support, encouragement and patience during the process of preparing for the GED test. Thanks to your efforts, difficult topics became understandable and the preparation became effective and motivating. You did not just explain the material, but inspired the study, therefore I believed in myself and the need for new heights. Your methodology, attentive attitude and individual approach played a decisive role in my success. Thank you for your work, care and dedication!",

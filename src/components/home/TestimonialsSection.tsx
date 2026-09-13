@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 import Container from "@/components/Container";
 
-import { testimonials } from "./data";
+import { testimonials, type TestimonialItem } from "./data";
 
 const AUTOPLAY_DELAY = 4500;
 const DESKTOP_ITEMS_PER_SLIDE = 2;
@@ -28,7 +28,11 @@ function getDesktopBreakpointServerSnapshot() {
   return false;
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({
+  items = testimonials,
+}: {
+  items?: TestimonialItem[];
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const isDesktop = useSyncExternalStore(
@@ -39,10 +43,10 @@ export default function TestimonialsSection() {
   const itemsPerSlide = isDesktop
     ? DESKTOP_ITEMS_PER_SLIDE
     : MOBILE_ITEMS_PER_SLIDE;
-  const slides: Array<(typeof testimonials)[number][]> = [];
+  const slides: TestimonialItem[][] = [];
 
-  for (let index = 0; index < testimonials.length; index += itemsPerSlide) {
-    slides.push(testimonials.slice(index, index + itemsPerSlide));
+  for (let index = 0; index < items.length; index += itemsPerSlide) {
+    slides.push(items.slice(index, index + itemsPerSlide));
   }
 
   const lastSlideIndex = Math.max(slides.length - 1, 0);
