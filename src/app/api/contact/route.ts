@@ -1,112 +1,71 @@
 import { Resend } from "resend";
+import { consultationEmail } from "@/lib/consultation/email";
+import {
+  pattayaToday,
+  validateConsultation,
+} from "@/lib/consultation/validation";
 
-type AppointmentRequest = {
-  studentName?: unknown;
-  guardianName?: unknown;
-  phone?: unknown;
-  email?: unknown;
-  preferredDate?: unknown;
-  preferredTime?: unknown;
-  program?: unknown;
-  notes?: unknown;
-};
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const getString = (value: unknown) =>
-  typeof value === "string" ? value.trim() : "";
-
-const formatValue = (value: string) => value || "-";
-
-const escapeHtml = (value: string) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+const sendFailure =
+  "We couldn't send your consultation request. Please try again.";
+const MAX_BODY_BYTES = 16_384;
 
 export async function POST(request: Request) {
-  const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL;
-
-  if (!process.env.RESEND_API_KEY || !receiverEmail) {
+  if (
+    request.headers.get("content-type")?.split(";")[0].trim() !==
+    "application/json"
+  ) {
     return Response.json(
-      { message: "Email service is not configured." },
-      { status: 500 },
+      { message: "Please send a JSON request." },
+      { status: 415 },
     );
   }
-
-  let body: AppointmentRequest;
-
+  let body: unknown;
   try {
-    body = (await request.json()) as AppointmentRequest;
+    // Bound actual streamed bytes, including requests without Content-Length.
+    const reader = request.body?.getReader();
+    if (!reader) throw new Error("Missing body");
+    const decoder = new TextDecoder();
+    let text = "";
+    let bytes = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > MAX_BODY_BYTES) {
+        await reader.cancel();
+        return Response.json(
+          { message: "Request is too large." },
+          { status: 413 },
+        );
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    body = JSON.parse(text + decoder.decode());
   } catch {
     return Response.json({ message: "Invalid request body." }, { status: 400 });
   }
+  const result = validateConsultation(body, pattayaToday());
+  if (!result.ok)
+    return Response.json({ message: result.message }, { status: 400 });
 
-  const studentName = getString(body.studentName);
-  const guardianName = getString(body.guardianName);
-  const phone = getString(body.phone);
-  const email = getString(body.email);
-  const preferredDate = getString(body.preferredDate);
-  const preferredTime = getString(body.preferredTime);
-  const program = getString(body.program);
-  const notes = getString(body.notes);
-
-  if (!studentName || !phone || !preferredDate || !preferredTime || !program) {
-    return Response.json(
-      { message: "Please fill in all required fields." },
-      { status: 400 },
-    );
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_SENDER_EMAIL;
+  const to = process.env.CONTACT_RECEIVER_EMAIL;
+  if (!apiKey || !from || !to) {
+    console.error("Consultation email configuration is missing.");
+    return Response.json({ message: sendFailure }, { status: 503 });
   }
-
-  const { error } = await resend.emails.send({
-    from:
-      process.env.CONTACT_SENDER_EMAIL ?? "Edukatory <onboarding@resend.dev>",
-    to: receiverEmail,
-    replyTo: email || undefined,
-    subject: `New appointment request from ${studentName}`,
-    text: [
-      "New appointment request",
-      "",
-      `Student name: ${studentName}`,
-      `Parent / guardian name: ${formatValue(guardianName)}`,
-      `Phone number: ${phone}`,
-      `Email: ${formatValue(email)}`,
-      `Preferred date: ${preferredDate}`,
-      `Preferred time: ${preferredTime}`,
-      `Program of interest: ${program}`,
-      "",
-      "Notes:",
-      formatValue(notes),
-    ].join("\n"),
-    html: `
-      <h2>New appointment request</h2>
-      <table cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
-        <tr><td><strong>Student name</strong></td><td>${escapeHtml(studentName)}</td></tr>
-        <tr><td><strong>Parent / guardian name</strong></td><td>${escapeHtml(formatValue(guardianName))}</td></tr>
-        <tr><td><strong>Phone number</strong></td><td>${escapeHtml(phone)}</td></tr>
-        <tr><td><strong>Email</strong></td><td>${escapeHtml(formatValue(email))}</td></tr>
-        <tr><td><strong>Preferred date</strong></td><td>${escapeHtml(preferredDate)}</td></tr>
-        <tr><td><strong>Preferred time</strong></td><td>${escapeHtml(preferredTime)}</td></tr>
-        <tr><td><strong>Program of interest</strong></td><td>${escapeHtml(program)}</td></tr>
-      </table>
-      <h3>Notes</h3>
-      <p>${escapeHtml(formatValue(notes)).replaceAll("\n", "<br />")}</p>
-    `,
-  });
-
-  if (error) {
-    return Response.json(
-      {
-        message: "Could not send appointment request.",
-
-        error: error.message,
-      },
-
-      { status: 502 },
-    );
+  try {
+    const { error } = await new Resend(apiKey).emails.send({
+      from,
+      to,
+      replyTo: result.value.email || undefined,
+      ...consultationEmail(result.value),
+    });
+    if (error) throw error;
+    return Response.json({ message: "Appointment request sent." });
+  } catch (error) {
+    console.error("Failed to send consultation email", error);
+    return Response.json({ message: sendFailure }, { status: 502 });
   }
-
-  return Response.json({ message: "Appointment request sent." });
 }

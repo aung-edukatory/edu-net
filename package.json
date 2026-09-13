@@ -2,19 +2,31 @@
   "name": "edunet",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "node server.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cms:generate-types": "payload generate:types",
+    "cms:generate-importmap": "payload generate:importmap",
+    "cms:migrate:create": "payload migrate:create",
+    "cms:migrate": "payload migrate",
+    "cms:seed": "payload run src/scripts/seed-cms.ts",
+    "cms:check": "payload run src/scripts/check-cms.ts"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "3.88.0",
+    "@payloadcms/next": "3.88.0",
+    "@payloadcms/richtext-lexical": "3.88.0",
+    "graphql": "16.14.2",
     "lucide-react": "^1.9.0",
-    "next": "^16.2.7",
+    "next": "16.3.4",
+    "payload": "3.88.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "resend": "^6.12.4",
-    "sharp": "^0.34.5"
+    "sharp": "0.35.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -23,7 +35,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

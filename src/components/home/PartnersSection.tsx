@@ -4,11 +4,11 @@ import Container from "@/components/Container";
 
 import { partners } from "./data";
 
-export default function PartnersSection() {
+export default function PartnersSection({ items = partners }: { items?: typeof partners }) {
   return (
     <section className="bg-[var(--surface)] py-12">
       <Container className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-        {partners.map((partner) => (
+        {items.map((partner) => (
           <div
             key={partner.name}
             className="flex items-center justify-center rounded-[24px] border border-[var(--border)] bg-white p-5 shadow-[0_16px_40px_rgba(2,31,61,0.06)]"

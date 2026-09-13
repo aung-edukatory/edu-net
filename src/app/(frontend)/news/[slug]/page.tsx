@@ -4,8 +4,7 @@ import { notFound } from "next/navigation";
 
 import Container from "@/components/Container";
 import { getNewsStoryBySlug, newsStories } from "@/components/home/data";
-
-export const dynamicParams = false;
+import { getCmsNewsBySlug } from "@/lib/cms/content";
 
 export function generateStaticParams() {
   return newsStories.map((story) => ({
@@ -19,7 +18,7 @@ export default async function NewsDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const story = getNewsStoryBySlug(slug);
+  const story = (await getCmsNewsBySlug(slug)) ?? getNewsStoryBySlug(slug);
 
   if (!story) {
     notFound();

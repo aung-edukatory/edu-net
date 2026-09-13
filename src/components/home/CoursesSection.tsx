@@ -5,7 +5,12 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import Container from "@/components/Container";
-import { courseTabs, coursesByTab, type CourseTab } from "@/data/courses";
+import {
+  courseTabs,
+  coursesByTab,
+  type CourseCard,
+  type CourseTab,
+} from "@/data/courses";
 import Icon from "./Icon";
 
 const hasCourseHref = (href?: string): href is string =>
@@ -13,8 +18,10 @@ const hasCourseHref = (href?: string): href is string =>
 
 export default function CoursesSection({
   initialTab = "GED",
+  courses = coursesByTab,
 }: {
   initialTab?: CourseTab;
+  courses?: Partial<Record<CourseTab, CourseCard[]>>;
 }) {
   const [activeTab, setActiveTab] = useState<CourseTab>(initialTab);
 
@@ -29,7 +36,10 @@ export default function CoursesSection({
     };
   }, []);
 
-  const activeCourses = useMemo(() => coursesByTab[activeTab], [activeTab]);
+  const activeCourses = useMemo(
+    () => courses[activeTab] ?? [],
+    [activeTab, courses],
+  );
 
   return (
     <section id="courses" className="bg-[var(--surface)] py-20 sm:py-24">

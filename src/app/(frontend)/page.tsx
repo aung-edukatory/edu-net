@@ -15,6 +15,14 @@ import {
   TestimonialsSection,
   TopBar,
 } from "@/components/home";
+import {
+  getCmsCourseCards,
+  getCmsGraduates,
+  getCmsNews,
+  getCmsPartners,
+} from "@/lib/cms/content";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home({
   searchParams,
@@ -22,21 +30,30 @@ export default async function Home({
   searchParams: Promise<{ course?: string | string[] }>;
 }) {
   const { course } = await searchParams;
+  const [courses, graduates, news, partners] = await Promise.all([
+    getCmsCourseCards(),
+    getCmsGraduates(),
+    getCmsNews(),
+    getCmsPartners(),
+  ]);
   return (
     <main id="top" className="bg-white text-[var(--navy)]">
       
       <HeroSection />
       <StatsSection />
       <AboutSection />
-      <CoursesSection initialTab={course === "junior" ? "Junior Courses" : "GED"} />
-      <GedGraduatesSection />
+      <CoursesSection
+        initialTab={course === "junior" ? "Junior Courses" : "GED"}
+        courses={courses ?? undefined}
+      />
+      <GedGraduatesSection graduates={graduates ?? undefined} />
       {/* <CampusSection /> */}
       <TeachersSection />
       <TeacherCtaSection />
       {/* <ResourcesSection /> */}
       <TestimonialsSection />
-      <NewsSection />
-      <PartnersSection />
+      <NewsSection stories={news ?? undefined} />
+      <PartnersSection items={partners ?? undefined} />
      
     </main>
   );

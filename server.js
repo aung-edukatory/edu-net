@@ -1,5 +1,5 @@
-const { createServer } = require("http");
-const next = require("next");
+import { createServer } from "node:http";
+import next from "next";
 
 const dev = false;
 const app = next({ dev });

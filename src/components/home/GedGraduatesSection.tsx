@@ -5,9 +5,9 @@ import { useState } from "react";
 import Image from "next/image";
 
 import Container from "@/components/Container";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const graduateTabs = {
+export const graduateTabs: Record<string, { src: string; alt: string }[]> = {
   "2025": [
     {
       src: "/our-ged-graduate/ged-2025/Ariana.png",
@@ -85,14 +85,17 @@ const graduateTabs = {
     },
   ],
 };
-type GraduateYear = keyof typeof graduateTabs;
-
 const visibleSlides = 4;
 
-export default function GedGraduatesSection() {
-  const [activeTab, setActiveTab] = useState<GraduateYear>("2025");
+export default function GedGraduatesSection({
+  graduates = graduateTabs,
+}: {
+  graduates?: Record<string, { src: string; alt: string }[]>;
+}) {
+  const years = Object.keys(graduates).sort().reverse();
+  const [activeTab, setActiveTab] = useState(years[0] ?? "");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const gedGraduateImages = graduateTabs[activeTab];
+  const gedGraduateImages = graduates[activeTab] ?? [];
 
   const maxIndex = Math.max(gedGraduateImages.length - visibleSlides, 0);
 
@@ -116,7 +119,7 @@ export default function GedGraduatesSection() {
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-3">
-            {(Object.keys(graduateTabs) as GraduateYear[]).map((year) => (
+            {years.map((year) => (
               <button
                 key={year}
                 type="button"

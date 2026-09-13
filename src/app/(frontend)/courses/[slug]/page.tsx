@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import CourseEnquiryButton from "@/components/course/CourseEnquiryButton";
 import { courseDetails, coursesByTab, type CourseCard } from "@/data/courses";
+import { getCmsCourseBySlug, getCmsCourseCards } from "@/lib/cms/content";
 
 type LinkedCourseCard = CourseCard & {
   href: string;
@@ -25,7 +26,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: CourseDetailPageProps) {
   const { slug } = await params;
 
-  const course = courseDetails.find((item) => item.slug === slug);
+  const course =
+    (await getCmsCourseBySlug(slug)) ??
+    courseDetails.find((item) => item.slug === slug);
 
   if (!course) {
     return {
@@ -44,13 +47,16 @@ export default async function CourseDetailPage({
 }: CourseDetailPageProps) {
   const { slug } = await params;
 
-  const course = courseDetails.find((item) => item.slug === slug);
+  const course =
+    (await getCmsCourseBySlug(slug)) ??
+    courseDetails.find((item) => item.slug === slug);
 
   if (!course) {
     notFound();
   }
 
-  const otherGedCourses = coursesByTab.GED.filter(
+  const cmsCourses = await getCmsCourseCards();
+  const otherGedCourses = (cmsCourses?.GED ?? coursesByTab.GED).filter(
     (item): item is LinkedCourseCard =>
       Boolean(item.href && item.href !== "#" && item.href !== `/courses/${slug}`)
   );

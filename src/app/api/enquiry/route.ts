@@ -9,8 +9,6 @@ type CourseEnquiryRequest = {
   message?: unknown;
 };
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const getString = (value: unknown) =>
   typeof value === "string" ? value.trim() : "";
 
@@ -25,9 +23,10 @@ const escapeHtml = (value: string) =>
     .replaceAll("'", "&#039;");
 
 export async function POST(request: Request) {
+  const apiKey = process.env.RESEND_API_KEY;
   const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL;
 
-  if (!process.env.RESEND_API_KEY || !receiverEmail) {
+  if (!apiKey || !receiverEmail) {
     return Response.json(
       { message: "Email service is not configured." },
       { status: 500 },
@@ -56,7 +55,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { error } = await resend.emails.send({
+  const { error } = await new Resend(apiKey).emails.send({
     from:
       process.env.CONTACT_SENDER_EMAIL ?? "Edukatory <onboarding@resend.dev>",
     to: receiverEmail,

@@ -3,10 +3,12 @@ import Link from "next/link";
 
 import Container from "@/components/Container";
 
-import { newsStories } from "./data";
+import { newsStories, type NewsStory } from "./data";
 
-export default function NewsSection() {
-  const [leadStory, ...sideStories] = newsStories;
+export default function NewsSection({ stories = newsStories }: { stories?: NewsStory[] }) {
+  const [leadStory, ...sideStories] = stories;
+
+  if (!leadStory) return null;
 
   return (
     <section id="news" className="bg-white py-24">
