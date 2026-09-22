@@ -21,21 +21,34 @@ export const siteIdentity = {
 
 export const contactDetails = {
   hours: "Mon - Fri 8:30 - 7:00pm",
+
   phone: "033 045 413",
   phoneHref: "tel:+6633045413",
+
   whatsapp: "+66 65 502 2088",
   whatsappHref: "https://wa.me/66655022088",
+
   email: "admin@elspattaya.com",
   emailHref: "mailto:admin@elspattaya.com",
-  instagram: "@edukatorylanguageschool",
-  instagramHref: "https://www.instagram.com/edukatorylanguageschool/",
+
+  instagram: "@elspattaya.edukatory",
+  instagramHref: "https://www.instagram.com/elspattaya.edukatory/",
+
   facebook: "ELS Pattaya",
-  facebookHref: "https://www.facebook.com/edukatorylanguageschool",
-  locationShort: "Chaiyapruek 2, Pattaya 20150, Thailand",
+  facebookHref:
+    "https://www.facebook.com/edukatorylanguageschool",
+
+  line: "@edukatory",
+  lineHref: "https://line.me/R/ti/p/@edukatory",
+
+  locationShort:
+    "Chaiyapruek 2, Pattaya 20150, Thailand",
+
   locationLong:
     "32/84-85 1-2F Moo 9, Chaiyapruek 2, Nongprue, Banglamung, Chon Buri 20150, Thailand",
+
   locationHref:
-    "https://www.google.com/maps/search/?api=1&query=32%2F84-85%201-2F%20Moo%209%2C%20Chaiyapruek%202%2C%20Nongprue%2C%20Banglamung%2C%20Chon%20Buri%2020150%2C%20Thailand",
+    "https://www.google.com/maps/place/ELS+Pattaya+(Edukatory+Language+School)/@12.8828864,100.905334,17z/data=!3m1!4b1!4m6!3m5!1s0x31029561bc6e3c33:0xa92dd44abe679e72!8m2!3d12.8828812!4d100.9079089!16s%2Fg%2F11w46wkr97?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D",
 };
 
 export const heroSpotlightLeadCard = {
@@ -49,12 +62,16 @@ export const heroSpotlightActionCards: Array<{
   title: string;
   detail: string;
   href: string;
-  icon: Extract<IconKind, "calendar" | "faq" | "usersRound">;
+  icon: Extract<
+    IconKind,
+    "calendar" | "faq" | "usersRound"
+  >;
   tone: string;
 }> = [
   {
     title: "PATHWAY CONSULTATION",
-    detail: "Tell us about your goals and academic background. Our advisors will recommend the most suitable ELS pathway for you.",
+    detail:
+      "Tell us about your goals and academic background. Our advisors will recommend the most suitable ELS pathway for you.",
     href: "#",
     icon: "usersRound",
     tone: "bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)]",
@@ -69,7 +86,8 @@ export const heroSpotlightActionCards: Array<{
   },
   {
     title: "ACADEMIC CALENDAR",
-    detail: "View intake dates, academic schedules, holidays, and exam periods to help you plan your learning journey.",
+    detail:
+      "View intake dates, academic schedules, holidays, and exam periods to help you plan your learning journey.",
     href: "#",
     icon: "calendar",
     tone: "bg-[linear-gradient(145deg,var(--navy)_0%,var(--navy-deep)_100%)]",
@@ -80,17 +98,20 @@ export const upcomingEvents = [
   {
     title: "Free GED orientation",
     date: "May 12, 2026",
-    detail: "Meet our advisors and choose the right starting level.",
+    detail:
+      "Meet our advisors and choose the right starting level.",
   },
   {
     title: "English placement day",
     date: "May 20, 2026",
-    detail: "Take a short level check and receive a study recommendation.",
+    detail:
+      "Take a short level check and receive a study recommendation.",
   },
   {
     title: "Parent progress briefing",
     date: "June 02, 2026",
-    detail: "Learn how Edukatory tracks weekly student improvement.",
+    detail:
+      "Learn how Edukatory tracks weekly student improvement.",
   },
 ];
 
@@ -141,7 +162,10 @@ export const featuredCourses = [
 export const facilityItems: Array<{
   title: string;
   detail: string;
-  icon: Extract<IconKind, "campus" | "research" | "support">;
+  icon: Extract<
+    IconKind,
+    "campus" | "research" | "support"
+  >;
 }> = [
   {
     title: "GED preparation",
@@ -214,26 +238,34 @@ export const books = [
   {
     title: "Future Ready",
     author: "Campus edition",
-    cover: "from-[#f3a339] via-[#ee7d3f] to-[#c65b2e]",
+    cover:
+      "from-[#f3a339] via-[#ee7d3f] to-[#c65b2e]",
   },
   {
     title: "Practice & Progress",
     author: "Study workbook",
-    cover: "from-[#7f9dd8] via-[#5879b9] to-[#304b82]",
+    cover:
+      "from-[#7f9dd8] via-[#5879b9] to-[#304b82]",
   },
   {
     title: "Title Template",
     author: "Reading series",
-    cover: "from-[#f0efe5] via-[#d8d6c6] to-[#9f9778]",
+    cover:
+      "from-[#f0efe5] via-[#d8d6c6] to-[#9f9778]",
   },
   {
     title: "Space of Light",
     author: "Creative writing",
-    cover: "from-[#1c2538] via-[#334d72] to-[#0c1017]",
+    cover:
+      "from-[#1c2538] via-[#334d72] to-[#0c1017]",
   },
 ];
 
-export type TestimonialItem = { name: string; role: string; quote: string };
+export type TestimonialItem = {
+  name: string;
+  role: string;
+  quote: string;
+};
 
 export const testimonials: TestimonialItem[] = [
   {
@@ -260,7 +292,6 @@ export const testimonials: TestimonialItem[] = [
     name: "Joey",
     role: "Student",
   },
-  
 ];
 
 export type NewsStory = {
@@ -279,7 +310,8 @@ export const newsStories: NewsStory[] = [
     detail:
       "A practical guide to time blocks, revision loops, and keeping ambitious coursework manageable.",
     tag: "Career guide",
-    image: "/blog/Why-Learning-a-Second-Language-Boosts-Your-Career.png",
+    image:
+      "/blog/Why-Learning-a-Second-Language-Boosts-Your-Career.png",
     content: [
       "Demo article text for this news detail page. Replace this paragraph later with the full article content, quotes, and any supporting information you want readers to see.",
       "A second demo paragraph can explain the main point of the story in more detail. For now, it is only here to prove the article layout, spacing, and route wiring are working correctly.",
@@ -289,9 +321,11 @@ export const newsStories: NewsStory[] = [
   {
     slug: "intercultural-communication-starts-in-class",
     title: "Intercultural communication starts in class",
-    detail: "Why mixed projects create stronger speaking confidence.",
+    detail:
+      "Why mixed projects create stronger speaking confidence.",
     tag: "Campus life",
-    image: "/blog/Why-Learning-English-is-Important_.png",
+    image:
+      "/blog/Why-Learning-English-is-Important_.png",
     content: [
       "Demo article text for this news detail page. Replace this content with the real story once the editorial copy is available.",
       "This placeholder paragraph shows how body copy wraps inside the article template and helps confirm the route behaves like a real content page.",
@@ -300,10 +334,13 @@ export const newsStories: NewsStory[] = [
   },
   {
     slug: "study-makes-you-perfect-when-the-routine-is-real",
-    title: "Study makes you perfect when the routine is real",
-    detail: "How to build consistency with shorter, repeatable sessions.",
+    title:
+      "Study makes you perfect when the routine is real",
+    detail:
+      "How to build consistency with shorter, repeatable sessions.",
     tag: "Study habits",
-    image: "/blog/English-Spelling-Confusing.png",
+    image:
+      "/blog/English-Spelling-Confusing.png",
     content: [
       "Demo article text for this news detail page. It is intentionally simple and only exists to support the new detail route for the news section.",
       "This placeholder can later become a real article about study routines, revision methods, and practical academic consistency.",
@@ -312,11 +349,13 @@ export const newsStories: NewsStory[] = [
   },
   {
     slug: "technology-education-is-now-part-of-every-pathway",
-    title: "Technology education is now part of every pathway",
+    title:
+      "Technology education is now part of every pathway",
     detail:
       "Digital research, presentation tools, and AI literacy now sit beside core subjects.",
     tag: "Innovation",
-    image: "/blog/Why-Learning-English-is-Important_.png",
+    image:
+      "/blog/Why-Learning-English-is-Important_.png",
     content: [
       "Demo article text for this news detail page. The final version can describe how technology skills support academic progress and career readiness.",
       "A second placeholder paragraph gives the template enough depth to look like a true article instead of a single-card preview.",
@@ -326,7 +365,9 @@ export const newsStories: NewsStory[] = [
 ];
 
 export function getNewsStoryBySlug(slug: string) {
-  return newsStories.find((story) => story.slug === slug);
+  return newsStories.find(
+    (story) => story.slug === slug,
+  );
 }
 
 type FooterLink = {
@@ -335,30 +376,65 @@ type FooterLink = {
   disabled?: boolean;
 };
 
-export const footerLinks: Record<"school" | "support", FooterLink[]> = {
+export const footerLinks: Record<
+  "school" | "support",
+  FooterLink[]
+> = {
   school: [
-    { label: "About us", href: "/about-us" },
-    { label: "Campus life", href: "#"},
-    { label: "Admissions", href: "#", disabled: true },
+    {
+      label: "About us",
+      href: "/about-us",
+    },
+    {
+      label: "Campus life",
+      href: "#",
+    },
+    {
+      label: "Admissions",
+      href: "#",
+      disabled: true,
+    },
   ],
+
   support: [
-    { label: "Courses Listings", href: "/#courses" },
-    { label: "Events", href: "#" },
-    { label: "Teachers", href: "/#teachers" },
-    { label: "News", href: "/#news" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Contact us", href: "/contact-us" },
+    {
+      label: "Courses Listings",
+      href: "/#courses",
+    },
+    {
+      label: "Events",
+      href: "#",
+    },
+    {
+      label: "Teachers",
+      href: "/#teachers",
+    },
+    {
+      label: "News",
+      href: "/#news",
+    },
+    {
+      label: "FAQ",
+      href: "/faq",
+    },
+    {
+      label: "Contact us",
+      href: "/contact-us",
+    },
   ],
 };
 
 export const socialLinks: Array<{
   label: string;
   href: string;
-  icon: Extract<IconKind, "briefcase" | "camera" | "users">;
+  icon: Extract<
+    IconKind,
+    "briefcase" | "camera" | "users"
+  >;
 }> = [
   {
     label: "Facebook",
-    href: "https://www.facebook.com/edukatorylanguageschool",
+    href: contactDetails.facebookHref,
     icon: "users",
   },
   {
@@ -368,7 +444,7 @@ export const socialLinks: Array<{
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/edukatorylanguageschool/?e=87cb269a-942b-48b3-8ace-186b4852bf09&g=5",
+    href: contactDetails.instagramHref,
     icon: "camera",
   },
 ];

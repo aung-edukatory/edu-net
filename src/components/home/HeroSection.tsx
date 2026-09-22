@@ -22,9 +22,9 @@ export default function HeroSection() {
             <span className="text-[var(--gold)]">Guidance</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-8 text-[var(--text-inverse-muted)] sm:text-lg">
-            From GED preparation to multilingual learning pathways,
-            ELS provides structured academic support designed
-            for long-term progress — in Pattaya and online.
+            From GED preparation to multilingual learning pathways, ELS provides
+            structured academic support designed for long-term progress — in
+            Pattaya and online.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -91,7 +91,9 @@ export default function HeroSection() {
                 {item.title}
               </h2>
               <div className="mt-4 h-0.5 w-14 rounded-full bg-[var(--gold-light)]" />
-              <p className="mt-6 text-sm leading-7 text-white/90">{item.detail}</p>
+              <p className="mt-6 text-sm leading-7 text-white/90">
+                {item.detail}
+              </p>
             </a>
           ))}
         </div>

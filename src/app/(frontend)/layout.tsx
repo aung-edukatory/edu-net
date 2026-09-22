@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { FooterSection, SiteHeader, TopBar } from "@/components/home";
+import { FloatingSocials } from "@/components/FloatingSocials";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,6 +67,8 @@ export default function RootLayout({
         <TopBar />
         <SiteHeader />
         {children}
+
+                <FloatingSocials />
 
         <FooterSection />
       </body>

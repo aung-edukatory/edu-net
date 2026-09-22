@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import {
-  Camera,
   Clock3,
   Mail,
   MapPin,
-  MessageCircle,
   Phone,
-  Users,
 } from "lucide-react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLine,
+  FaWhatsapp,
+} from "react-icons/fa6";
 
 import Container from "@/components/Container";
 import { contactDetails } from "@/components/home/data";
@@ -16,7 +19,9 @@ export const metadata: Metadata = {
   title: "Contact Us | ELS Pattaya",
   description:
     "Contact ELS Pattaya for GED preparation, English language courses, and academic pathway advice.",
-  alternates: { canonical: "/contact-us" },
+  alternates: {
+    canonical: "/contact-us",
+  },
 };
 
 const contactMethods = [
@@ -33,16 +38,28 @@ const contactMethods = [
     icon: Mail,
   },
   {
-    label: "WhatsApp",
-    value: contactDetails.whatsapp,
-    href: contactDetails.whatsappHref,
-    icon: MessageCircle,
-  },
-  {
     label: "Facebook",
     value: contactDetails.facebook,
     href: contactDetails.facebookHref,
-    icon: Users,
+    icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    value: contactDetails.instagram,
+    href: contactDetails.instagramHref,
+    icon: FaInstagram,
+  },
+  {
+    label: "WhatsApp",
+    value: contactDetails.whatsapp,
+    href: contactDetails.whatsappHref,
+    icon: FaWhatsapp,
+  },
+  {
+    label: "LINE",
+    value: contactDetails.line,
+    href: contactDetails.lineHref,
+    icon: FaLine,
   },
 ];
 
@@ -54,9 +71,11 @@ export default function ContactUsPage() {
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[var(--gold)]">
             Contact ELS Pattaya
           </p>
+
           <h1 className="mt-4 text-4xl font-black tracking-[-0.045em] sm:text-5xl">
             Let&apos;s plan your learning journey
           </h1>
+
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[var(--text-inverse-muted)] sm:text-lg">
             Talk to our team about GED preparation, English courses, and the
             right academic pathway for you.
@@ -69,34 +88,56 @@ export default function ContactUsPage() {
           <p className="text-sm font-black uppercase tracking-[0.2em] text-[var(--gold-deep)]">
             Get in touch
           </p>
+
           <h2
             id="contact-details-heading"
             className="mt-3 text-3xl font-black tracking-[-0.04em] text-[var(--navy)]"
           >
             We&apos;re here to help
           </h2>
+
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {contactMethods.map(({ label, value, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noreferrer" : undefined}
-                className="group flex items-start gap-4 rounded-2xl border border-[var(--border)] bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--muted)] hover:shadow-md"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--surface)] text-[var(--navy)] transition-colors group-hover:bg-[var(--navy)] group-hover:text-white">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span>
-                  <span className="block text-sm font-bold text-[var(--muted)]">
-                    {label}
+            {contactMethods.map(
+              ({
+                label,
+                value,
+                href,
+                icon: Icon,
+              }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={
+                    href.startsWith("http")
+                      ? "_blank"
+                      : undefined
+                  }
+                  rel={
+                    href.startsWith("http")
+                      ? "noreferrer"
+                      : undefined
+                  }
+                  className="group flex items-start gap-4 rounded-2xl border border-[var(--border)] bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--muted)] hover:shadow-md"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--surface)] text-[var(--navy)] transition-colors group-hover:bg-[var(--navy)] group-hover:text-white">
+                    <Icon
+                      className="h-5 w-5"
+                      aria-hidden="true"
+                    />
                   </span>
-                  <span className="mt-1 block break-words font-bold text-[var(--navy)]">
-                    {value}
+
+                  <span className="min-w-0">
+                    <span className="block text-sm font-bold text-[var(--muted)]">
+                      {label}
+                    </span>
+
+                    <span className="mt-1 block break-words font-bold text-[var(--navy)]">
+                      {value}
+                    </span>
                   </span>
-                </span>
-              </a>
-            ))}
+                </a>
+              ),
+            )}
           </div>
         </section>
 
@@ -104,6 +145,7 @@ export default function ContactUsPage() {
           <p className="text-sm font-black uppercase tracking-[0.2em] text-[var(--gold-deep)]">
             Visit our school
           </p>
+
           <h2 className="mt-3 text-2xl font-black tracking-[-0.035em] text-[var(--navy)]">
             ELS Pattaya
           </h2>
@@ -112,19 +154,32 @@ export default function ContactUsPage() {
             href={contactDetails.locationHref}
             target="_blank"
             rel="noreferrer"
-            className="mt-6 flex gap-4 rounded-xl bg-[var(--surface)] p-4 transition-colors hover:bg-[var(--surface)]"
+            className="mt-6 flex gap-4 rounded-xl border border-transparent bg-[var(--surface)] p-4 transition-colors hover:border-[var(--border)]"
           >
-            <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[var(--navy)]" aria-hidden="true" />
+            <MapPin
+              className="mt-0.5 h-5 w-5 shrink-0 text-[var(--navy)]"
+              aria-hidden="true"
+            />
+
             <span className="text-sm font-medium leading-6 text-[var(--muted)]">
               {contactDetails.locationLong}
             </span>
           </a>
 
           <div className="mt-5 flex items-start gap-4 text-sm text-[var(--muted)]">
-            <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--navy)]" aria-hidden="true" />
+            <Clock3
+              className="mt-0.5 h-5 w-5 shrink-0 text-[var(--navy)]"
+              aria-hidden="true"
+            />
+
             <span>
-              <span className="block font-bold text-[var(--navy)]">Opening hours</span>
-              <span className="mt-1 block">{contactDetails.hours}</span>
+              <span className="block font-bold text-[var(--navy)]">
+                Opening hours
+              </span>
+
+              <span className="mt-1 block">
+                {contactDetails.hours}
+              </span>
             </span>
           </div>
 
@@ -134,7 +189,10 @@ export default function ContactUsPage() {
             rel="noreferrer"
             className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-black text-white transition-transform hover:-translate-y-0.5"
           >
-            <MapPin className="h-4 w-4" aria-hidden="true" />
+            <MapPin
+              className="h-4 w-4"
+              aria-hidden="true"
+            />
             Get directions
           </a>
         </aside>

@@ -377,7 +377,6 @@ export default function BookConsultationButton() {
                 }}
                 className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors focus:border-[var(--navy)]"
               />
-
             </label>
 
             <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
