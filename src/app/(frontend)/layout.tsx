@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { FooterSection, SiteHeader, TopBar } from "@/components/home";
 import { FloatingSocials } from "@/components/FloatingSocials";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,10 +66,12 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <TopBar />
-        <SiteHeader />
+        <Suspense fallback={null}>
+          <SiteHeader />
+        </Suspense>
         {children}
 
-                <FloatingSocials />
+        <FloatingSocials />
 
         <FooterSection />
       </body>
