@@ -1,6 +1,7 @@
 import * as migration_20260910_053254_initial_cms from './20260910_053254_initial_cms';
 import * as migration_20260910_053415_course_card_title from './20260910_053415_course_card_title';
 import * as migration_20260913_044647_testimonials from './20260913_044647_testimonials';
+import * as migration_20260924_044548_consultation_promos from './20260924_044548_consultation_promos';
 
 export const migrations = [
   {
@@ -16,6 +17,11 @@ export const migrations = [
   {
     up: migration_20260913_044647_testimonials.up,
     down: migration_20260913_044647_testimonials.down,
-    name: '20260913_044647_testimonials'
+    name: '20260913_044647_testimonials',
+  },
+  {
+    up: migration_20260924_044548_consultation_promos.up,
+    down: migration_20260924_044548_consultation_promos.down,
+    name: '20260924_044548_consultation_promos'
   },
 ];

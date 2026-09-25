@@ -14,6 +14,10 @@ import { Partners } from "@/collections/Partners";
 import { Testimonials } from "@/collections/Testimonials";
 import { Users } from "@/collections/Users";
 
+import { Venues } from "@/collections/Venues";
+import { PromoCodes } from "@/collections/PromoCodes";
+import { ConsultationRequests } from "@/collections/ConsultationRequests";
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -40,7 +44,18 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Media, Graduates, Courses, News, Partners, Testimonials],
+  collections: [
+    Users,
+    Media,
+    Graduates,
+    Courses,
+    News,
+    Partners,
+    Testimonials,
+    Venues,
+    PromoCodes,
+    ConsultationRequests,
+  ],
   db: postgresAdapter({
     pool: { connectionString: requiredEnv("DATABASE_URL") },
   }),

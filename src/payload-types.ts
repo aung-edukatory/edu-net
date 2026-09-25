@@ -74,6 +74,9 @@ export interface Config {
     news: News;
     partners: Partner;
     testimonials: Testimonial;
+    venues: Venue;
+    'promo-codes': PromoCode;
+    'consultation-requests': ConsultationRequest;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +91,9 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    venues: VenuesSelect<false> | VenuesSelect<true>;
+    'promo-codes': PromoCodesSelect<false> | PromoCodesSelect<true>;
+    'consultation-requests': ConsultationRequestsSelect<false> | ConsultationRequestsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -302,6 +308,70 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "venues".
+ */
+export interface Venue {
+  id: number;
+  name: string;
+  active: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promo-codes".
+ */
+export interface PromoCode {
+  id: number;
+  /**
+   * Codes are permanent and can be redeemed once. Disable unused codes instead of deleting them.
+   */
+  code: string;
+  venue: number | Venue;
+  active: boolean;
+  usedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultation-requests".
+ */
+export interface ConsultationRequest {
+  id: number;
+  requestKey: string;
+  studentName: string;
+  guardianName?: string | null;
+  phone: string;
+  email?: string | null;
+  preferredDate: string;
+  preferredTime:
+    | '09:00-10:00'
+    | '10:00-11:00'
+    | '11:00-12:00'
+    | '13:00-14:00'
+    | '14:00-15:00'
+    | '15:00-16:00'
+    | '16:00-17:00'
+    | '17:00-18:00';
+  program: 'ged' | 'language' | 'academic' | 'other';
+  notes?: string | null;
+  source: 'website' | 'qr';
+  promo?: (number | null) | PromoCode;
+  promoCode?: string | null;
+  venue?: (number | null) | Venue;
+  establishment?: string | null;
+  notificationStatus: 'pending' | 'sent' | 'failed';
+  notifiedAt?: string | null;
+  /**
+   * To retry a pending or failed email, check this box and save. The consultation and promo redemption remain unchanged.
+   */
+  retryNotification?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -351,6 +421,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'testimonials';
         value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'venues';
+        value: number | Venue;
+      } | null)
+    | ({
+        relationTo: 'promo-codes';
+        value: number | PromoCode;
+      } | null)
+    | ({
+        relationTo: 'consultation-requests';
+        value: number | ConsultationRequest;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -563,6 +645,53 @@ export interface TestimonialsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "venues_select".
+ */
+export interface VenuesSelect<T extends boolean = true> {
+  name?: T;
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promo-codes_select".
+ */
+export interface PromoCodesSelect<T extends boolean = true> {
+  code?: T;
+  venue?: T;
+  active?: T;
+  usedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultation-requests_select".
+ */
+export interface ConsultationRequestsSelect<T extends boolean = true> {
+  requestKey?: T;
+  studentName?: T;
+  guardianName?: T;
+  phone?: T;
+  email?: T;
+  preferredDate?: T;
+  preferredTime?: T;
+  program?: T;
+  notes?: T;
+  source?: T;
+  promo?: T;
+  promoCode?: T;
+  venue?: T;
+  establishment?: T;
+  notificationStatus?: T;
+  notifiedAt?: T;
+  retryNotification?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -107,7 +107,7 @@ export default function CoursesSection({
                 {hasCourseHref(course.href) && (
                   <Link
                     href={course.href}
-                    className="mt-3 inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                    className="mt-3 inline-flex items-center gap-3 rounded-full bg-gold-gradient px-5 py-3 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5"
                   >
                     Know more
 

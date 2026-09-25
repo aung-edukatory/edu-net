@@ -1,16 +1,19 @@
-import { resolveCampaign, type CampaignContext } from "./campaigns";
+import {
+  normalizePromoCode,
+  isPromoCode,
+  type CampaignContext,
+} from "./campaigns";
 
 export const timeLabels = {
-  "09:00-10:00": "9:00 AM - 10:00 AM",
-  "10:00-11:00": "10:00 AM - 11:00 AM",
-  "11:00-12:00": "11:00 AM - 12:00 PM",
-  "13:00-14:00": "1:00 PM - 2:00 PM",
-  "14:00-15:00": "2:00 PM - 3:00 PM",
-  "15:00-16:00": "3:00 PM - 4:00 PM",
-  "16:00-17:00": "4:00 PM - 5:00 PM",
-  "17:00-18:00": "5:00 PM - 6:00 PM",
+  "09:00-10:00": "09:00 - 10:00",
+  "10:00-11:00": "10:00 - 11:00",
+  "11:00-12:00": "11:00 - 12:00",
+  "13:00-14:00": "13:00 - 14:00",
+  "14:00-15:00": "14:00 - 15:00",
+  "15:00-16:00": "15:00 - 16:00",
+  "16:00-17:00": "16:00 - 17:00",
+  "17:00-18:00": "17:00 - 18:00",
 };
-
 
 export const programLabels = {
   ged: "GED Preparation",
@@ -45,6 +48,8 @@ export type Consultation = {
   preferredTime: keyof typeof timeLabels;
   program: keyof typeof programLabels;
   notes: string;
+  source: "website" | "qr";
+  requestKey: string;
   promoCode: string;
   campaign: CampaignContext | null;
 };
@@ -70,9 +75,8 @@ export function validateConsultation(
     program: 30,
     notes: 2000,
     source: 7,
-    sourceId: 64,
+    requestKey: 36,
     promoCode: 64,
-    establishment: 100,
   };
   for (const key of Object.keys(body)) {
     if (!Object.hasOwn(limits, key)) return fail("Invalid request body.");
@@ -112,27 +116,24 @@ export function validateConsultation(
     return fail("Please choose a supported consultation time.");
   if (!Object.hasOwn(programLabels, program))
     return fail("Please choose a supported program.");
-  let campaign: CampaignContext | null = null;
-  const promoCode = get("promoCode");
-  if (promoCode && !/^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/.test(promoCode))
-    return fail("Please enter a promo code using letters, numbers, hyphens or underscores.");
-  if (get("source") === "qr") {
-    if (!promoCode) return fail("Please enter a promo code.");
-    campaign = resolveCampaign(body.sourceId);
-    if (
-      !campaign ||
-      (body.establishment !== undefined &&
-        get("establishment") !== campaign.establishment)
+  const source = get("source") || "website";
+  if (source !== "website" && source !== "qr")
+    return fail("Invalid consultation source.");
+  const requestKey = get("requestKey");
+  if (
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+      requestKey,
     )
-      return fail("This consultation QR link is invalid.");
-  } else if (
-    (body.source !== undefined && get("source") !== "website") ||
-    ["sourceId", "establishment"].some(
-      (key) => body[key] !== undefined,
-    )
-  ) {
-    return fail("This consultation QR link is invalid.");
-  }
+  )
+    return fail("Please reopen the consultation form and try again.");
+  const promoCode = normalizePromoCode(get("promoCode"));
+  if (source === "qr" && !promoCode) return fail("Please enter a promo code.");
+  if (promoCode && !isPromoCode(promoCode))
+    return fail(
+      "Please enter a promo code using letters, numbers, hyphens or underscores.",
+    );
+  if (source === "website" && promoCode)
+    return fail("Please use the QR consultation form for promo codes.");
   return {
     ok: true,
     value: {
@@ -145,7 +146,9 @@ export function validateConsultation(
       program: program as keyof typeof programLabels,
       notes: get("notes"),
       promoCode,
-      campaign,
+      source,
+      requestKey,
+      campaign: null,
     },
   };
 }

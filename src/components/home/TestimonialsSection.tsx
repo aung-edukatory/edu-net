@@ -174,7 +174,7 @@ export default function TestimonialsSection({
                 onMouseLeave={() => setIsPaused(false)}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   currentSlideIndex === index
-                    ? "w-8 bg-[var(--gold)]"
+                    ? "w-8 bg-[var(--gold-light)]"
                     : "w-2 bg-white/25 hover:bg-white/50"
                 }`}
                 aria-label={`Go to testimonial slide ${index + 1}`}

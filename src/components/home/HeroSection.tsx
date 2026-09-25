@@ -17,9 +17,9 @@ export default function HeroSection() {
             <br />
             Academic Future
             <br />
-            with <span className="text-[var(--gold)]">Structured</span>
+            with <span className="text-gold-gradient">Structured</span>
             <br />
-            <span className="text-[var(--gold)]">Guidance</span>
+            <span className="text-gold-gradient">Guidance</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-8 text-[var(--text-inverse-muted)] sm:text-lg">
             From GED preparation to multilingual learning pathways, ELS provides
@@ -30,7 +30,7 @@ export default function HeroSection() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
               href="#courses"
-              className="inline-flex items-center justify-center gap-3 rounded-md bg-[var(--gold)] px-6 py-4 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 rounded-md bg-gold-gradient px-6 py-4 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5"
             >
               <Icon kind="send" className="h-5 w-5" />
               Explore Pathways

@@ -9,10 +9,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { CalendarCheck, Send, X } from "lucide-react";
-import {
-  parseConsultationUrl,
-  type CampaignContext,
-} from "@/lib/consultation/campaigns";
+import { parseConsultationUrl } from "@/lib/consultation/campaigns";
 import {
   pattayaToday,
   programLabels,
@@ -20,13 +17,20 @@ import {
   validateConsultation,
 } from "@/lib/consultation/validation";
 
+import ConsultationPromoField, {
+  type VerifiedPromo,
+} from "./ConsultationPromoField";
+
 export default function BookConsultationButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [campaign, setCampaign] = useState<CampaignContext | null>(null);
-  const [qrNotice, setQrNotice] = useState("");
+  const [qrPromo, setQrPromo] = useState(false);
+  const [verifiedPromo, setVerifiedPromo] = useState<VerifiedPromo | null>(
+    null,
+  );
+  const requestKey = useRef("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const submittingRef = useRef(false);
@@ -37,8 +41,8 @@ export default function BookConsultationButton() {
     setIsSubmitted(false);
     setIsSubmitting(false);
     setErrorMessage("");
-    setQrNotice("");
-    setCampaign(null);
+    setQrPromo(false);
+    setVerifiedPromo(null);
   }, []);
 
   useEffect(() => {
@@ -47,14 +51,10 @@ export default function BookConsultationButton() {
       const url = new URL(window.location.href);
       const context = parseConsultationUrl(url.searchParams);
       if (!context.requested) return;
-      setCampaign(context.campaign);
-      setQrNotice(
-        context.invalid
-          ? "This consultation QR link is invalid. You can still book a normal consultation below."
-          : "",
-      );
+      setQrPromo(context.qrPromo);
+      requestKey.current = crypto.randomUUID();
       setIsOpen(true);
-      for (const key of ["consultation", "source", "promo"])
+      for (const key of ["consultation", "qrpromo", "source", "promo"])
         url.searchParams.delete(key);
       window.history.replaceState(
         window.history.state,
@@ -152,6 +152,10 @@ export default function BookConsultationButton() {
     if (submittingRef.current || isSubmitted) return;
     setErrorMessage("");
 
+    if (qrPromo && !verifiedPromo) {
+      setErrorMessage("Please apply a valid promo code before submitting.");
+      return;
+    }
     const formData = new FormData(event.currentTarget);
     const payload = {
       studentName: formData.get("studentName"),
@@ -162,8 +166,9 @@ export default function BookConsultationButton() {
       preferredTime: formData.get("preferredTime"),
       program: formData.get("program"),
       notes: formData.get("notes"),
-      ...(campaign ?? { source: "website" }),
-      ...(campaign ? { promoCode: formData.get("promoCode") } : {}),
+      source: qrPromo ? "qr" : "website",
+      requestKey: requestKey.current,
+      ...(qrPromo ? { promoCode: verifiedPromo?.promoCode } : {}),
     };
     const validation = validateConsultation(payload, pattayaToday());
     if (!validation.ok) {
@@ -181,6 +186,7 @@ export default function BookConsultationButton() {
       });
 
       if (!response.ok) {
+        if (response.status === 400 && qrPromo) setVerifiedPromo(null);
         const data = (await response.json().catch(() => null)) as {
           message?: string;
         } | null;
@@ -266,7 +272,7 @@ export default function BookConsultationButton() {
               <button
                 type="button"
                 onClick={closeForm}
-                className="mt-5 inline-flex items-center justify-center rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                className="mt-5 inline-flex items-center justify-center rounded-md bg-[var(--gold-light)] px-5 py-3 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5"
               >
                 Close
               </button>
@@ -277,32 +283,12 @@ export default function BookConsultationButton() {
             className="grid gap-4 bg-[var(--surface)] px-5 py-5 sm:grid-cols-2 sm:px-6"
             onSubmit={handleSubmit}
           >
-            {qrNotice ? (
-              <p role="status" className="text-sm text-red-700 sm:col-span-2">
-                {qrNotice}
-              </p>
-            ) : null}
-            {campaign ? (
-              <dl className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm text-[var(--navy)] sm:col-span-2">
-                <dt className="font-bold">Venue / Establishment</dt>
-                <dd>{campaign.establishment}</dd>
-              </dl>
-            ) : null}
-            {campaign ? (
-              <label className="grid gap-2 text-sm font-bold text-[var(--navy)] sm:col-span-2">
-                Promo code
-                <input
-                  name="promoCode"
-                  type="text"
-                  maxLength={64}
-                  required={Boolean(campaign)}
-                  disabled={isSubmitting}
-                  autoCapitalize="none"
-                  spellCheck={false}
-                  className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors placeholder:text-[var(--muted)] focus:border-[var(--navy)]"
-                  placeholder="Enter promo code"
-                />
-              </label>
+            {qrPromo ? (
+              <ConsultationPromoField
+                disabled={isSubmitting}
+                verified={verifiedPromo}
+                onVerified={setVerifiedPromo}
+              />
             ) : null}
             <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
               Student name
@@ -362,7 +348,6 @@ export default function BookConsultationButton() {
                 type="date"
                 required
                 disabled={isSubmitting}
-                aria-describedby="consultation-date-hint"
                 onFocus={(event) => {
                   event.currentTarget.min = pattayaToday();
                 }}
@@ -445,8 +430,8 @@ export default function BookConsultationButton() {
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                disabled={isSubmitting || (qrPromo && !verifiedPromo)}
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-gold-gradient px-5 py-3 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
               >
                 <Send className="h-4 w-4" aria-hidden="true" />
                 {isSubmitting ? "Sending..." : "Submit appointment"}
@@ -466,11 +451,12 @@ export default function BookConsultationButton() {
         onClick={() => {
           setIsSubmitted(false);
           setErrorMessage("");
-          setQrNotice("");
-          setCampaign(null);
+          setQrPromo(false);
+          setVerifiedPromo(null);
+          requestKey.current = crypto.randomUUID();
           setIsOpen(true);
         }}
-        className="inline-flex items-center justify-center gap-3 rounded-md bg-[var(--gold)] px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+        className="inline-flex items-center justify-center gap-3 rounded-md bg-gold-gradient px-5 py-3 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5"
       >
         <CalendarCheck
           className="h-5 w-5"

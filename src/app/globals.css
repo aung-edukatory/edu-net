@@ -5,11 +5,42 @@
   --navy: #021F3D;
   --navy-deep: #041430;
   --gold: #B88B47;
-  --gold-light: #CBA05C;
+  --gold-light: #FFE8B7;
   --gold-deep: #AA7C36;
   --light: #FCFDFE;
 
-  /* Shared app colors, including subtle palette-derived surfaces. */
+  /* Gradients */
+--gradient-gold:
+  radial-gradient(
+    ellipse at 95% 80%,
+    #FEE9B4 0%,
+    transparent 55%
+  ),
+  linear-gradient(
+    115deg,
+    #B4924B 0%,
+    #C7A460 28%,
+    #DAB974 52%,
+    #ECCD8A 76%,
+    #F7DDA0 100%
+  );
+
+
+
+  --gradient-text:
+  radial-gradient(
+    ellipse at 88% 35%,
+    #fff3d9 0%,
+    transparent 58%
+  ),
+  linear-gradient(
+    115deg,
+    #dfb45e 0%,
+    #dfb45e 32%,
+    #fff3d9 100%
+  );
+
+  /* Shared app colors */
   --background: var(--light);
   --foreground: var(--navy);
   --muted: color-mix(in srgb, var(--navy) 75%, var(--light));
@@ -18,11 +49,14 @@
   --surface-strong: var(--light);
   --surface-muted: color-mix(in srgb, var(--navy) 8%, var(--light));
   --text-inverse-muted: color-mix(in srgb, var(--light) 82%, var(--navy));
+
   --brand: var(--navy);
   --brand-strong: var(--navy-deep);
   --brand-soft: var(--surface);
+
   --accent: var(--gold);
   --accent-strong: var(--gold-deep);
+
   --color-night: var(--navy-deep);
 }
 
@@ -30,8 +64,50 @@
   --color-white: var(--light);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Custom Tailwind utility */
+@utility bg-gold-gradient {
+  background-image: var(--gradient-gold);
+
+  /* radial layer, linear layer */
+  background-size:
+    180% 180%,
+    200% 200%;
+
+  background-position:
+    100% 80%,
+    0% 50%;
+
+  background-repeat: no-repeat;
+
+  transition:
+    background-position 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-size 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  will-change: background-position, background-size;
+
+  &:hover {
+    background-position:
+      0% 20%,
+      100% 50%;
+
+    background-size:
+      200% 200%,
+      220% 220%;
+  }
+}
+
+@utility text-gold-gradient {
+  background-image: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 * {
@@ -58,6 +134,10 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--gold-light) 40%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--gold-light) 40%,
+    transparent
+  );
   color: var(--navy);
 }

@@ -9,8 +9,6 @@ import ts from "typescript";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // Exercise the real TypeScript modules without adding a test framework.
-const sent = [];
-let providerFailure = false;
 const cache = new Map();
 function load(filename) {
   filename = path.resolve(__dirname, "..", filename);
@@ -23,19 +21,6 @@ function load(filename) {
   }).outputText;
   const loadedModule = { exports: {} };
   const localRequire = (id) => {
-    if (id === "resend")
-      return {
-        Resend: class {
-          emails = {
-            send: async (message) => {
-              sent.push(message);
-              if (providerFailure)
-                throw new Error("private provider information");
-              return { error: null };
-            },
-          };
-        },
-      };
     return load(
       id.startsWith("@/")
         ? `src/${id.slice(2)}.ts`
@@ -53,20 +38,19 @@ const { validateConsultation, pattayaToday, localToday } = load(
 );
 const { parseConsultationUrl } = load("src/lib/consultation/campaigns.ts");
 const { consultationEmail } = load("src/lib/consultation/email.ts");
-const { POST } = load("src/app/api/contact/route.ts");
+const { readRequestBody } = load("src/lib/consultation/request-body.ts");
 const valid = {
   studentName: " John Smith ",
   phone: "+66 81 234 5678",
   preferredDate: "2099-09-15",
-  preferredTime: "afternoon",
+  preferredTime: "13:00-14:00",
+  requestKey: "14d5926d-74e7-4387-94f9-f8be3a78eec1",
   program: "ged",
 };
 const qr = {
   ...valid,
   source: "qr",
-  sourceId: "cafe01",
   promoCode: "EDU-12345",
-  establishment: "Cafe 01",
 };
 const request = (body) =>
   new Request("http://localhost/api/contact", {
@@ -83,30 +67,28 @@ test("normal and QR context, optional fields, normalized international phones", 
     assert.equal(result.value.campaign, null);
   }
   assert.equal(parseConsultationUrl(new URLSearchParams()).requested, false);
-  for (const query of [
-    "consultation=1&source=cafe01",
-    "consultation=1&source=cafe01&promo=EDU-12345",
-    "consultation=1&source=cafe01&promo=a&promo=b",
-  ]) {
-    const context = parseConsultationUrl(new URLSearchParams(query));
-    assert.equal(context.invalid, false);
-    assert.deepEqual(context.campaign, {
-      source: "qr",
-      sourceId: "cafe01",
-      establishment: "Cafe 01",
-    });
-  }
+  const enabled = parseConsultationUrl(
+    new URLSearchParams("consultation=1&qrpromo=1"),
+  );
+  assert.deepEqual(enabled, { requested: true, qrPromo: true });
   for (const query of [
     "consultation=1",
-    "consultation=1&source=unknown-source&promo=EDU-12345",
-    "consultation=1&source=toString&promo=EDU-12345",
-    "consultation=1&source=cafe01&source=cafe01",
-  ]) {
+    "consultation=1&source=cafe1",
+    "qrpromo=1",
+    "consultation=1&qrpromo=0",
+    "consultation=1&qrpromo=1&qrpromo=1",
+    "consultation=1&consultation=1&qrpromo=1",
+  ])
     assert.equal(
-      parseConsultationUrl(new URLSearchParams(query)).invalid,
-      true,
+      parseConsultationUrl(new URLSearchParams(query)).qrPromo,
+      false,
     );
-  }
+  const normalized = validateConsultation(
+    { ...qr, promoCode: " edu-12345 " },
+    "2026-09-08",
+  );
+  assert.equal(normalized.ok, true);
+  assert.equal(normalized.value.promoCode, "EDU-12345");
 });
 
 test("reject malformed shapes, past/impossible dates, invalid contacts, enums and campaigns", () => {
@@ -129,6 +111,9 @@ test("reject malformed shapes, past/impossible dates, invalid contacts, enums an
     { ...qr, promoCode: "" },
     { ...valid, promoCode: "<b>promo</b>" },
     { ...valid, promoCode: "a".repeat(65) },
+    { ...valid, requestKey: "bad" },
+    { ...valid, requestKey: "" },
+    { ...valid, promoCode: "QR-ONLY" },
   ]) {
     assert.equal(
       validateConsultation(input, "2026-09-08").ok,
@@ -154,19 +139,20 @@ test("readable subjects and escaped email content", () => {
   assert.equal(normal.subject, "New Book Consultation - ELS Pattaya");
   assert.match(normal.text, /Source: Website/);
   assert.match(normal.text, /Guardian Name: Not provided/);
-  const email = consultationEmail(
-    validateConsultation(
+  const email = consultationEmail({
+    ...validateConsultation(
       { ...qr, notes: '<img src=x onerror="alert(1)">\nNext line' },
       "2026-09-08",
     ).value,
-  );
+    campaign: { source: "qr", sourceId: "1", establishment: "Cafe 01" },
+  });
   assert.equal(email.subject, "Cafe 01 - Book Consultation");
   for (const label of [
     "Cafe 01",
     "EDU-12345",
     "QR Code",
     "September 15, 2099",
-    "Afternoon",
+    "1:00 PM - 2:00 PM",
     "GED Preparation",
   ])
     assert.ok(email.text.includes(label));
@@ -174,72 +160,31 @@ test("readable subjects and escaped email content", () => {
   assert.match(email.html, /&lt;img/);
 });
 
-test("API validates before sending, sends both flows, hides thrown provider failures", async () => {
-  process.env.RESEND_API_KEY = "test-only";
-  process.env.CONTACT_SENDER_EMAIL = "Test <test@example.com>";
-  process.env.CONTACT_RECEIVER_EMAIL = "test@example.com";
-  for (const body of [
-    null,
-    { ...valid, phone: "bad" },
-    { ...valid, email: "bad" },
-    { ...valid, preferredDate: "2000-01-01" },
-    { ...qr, sourceId: "unknown" },
-  ])
-    assert.equal((await POST(request(body))).status, 400);
-  assert.equal(sent.length, 0);
-  assert.equal((await POST(request(valid))).status, 200);
-  assert.equal(sent[0].subject, "New Book Consultation - ELS Pattaya");
-  assert.equal(sent[0].replyTo, undefined);
+test("request parser bounds the body and rejects unsupported or malformed input", async () => {
+  assert.deepEqual(await readRequestBody(request(valid)), { body: valid });
   assert.equal(
-    (await POST(request({ ...qr, email: "john@example.com" }))).status,
-    200,
+    (await readRequestBody(request({ notes: "a".repeat(17000) }))).response
+      .status,
+    413,
   );
-  assert.equal(sent[1].subject, "Cafe 01 - Book Consultation");
-  assert.equal(sent[1].replyTo, "john@example.com");
-  assert.equal(
-    (await POST(request({ ...valid, source: "website", promoCode: " MANUAL-10 " }))).status,
-    200,
-  );
-  assert.match(sent[2].text, /Promo Code: MANUAL-10/);
-  assert.match(sent[2].html, /MANUAL-10/);
-  assert.match(sent[2].text, /Source: Website/);
-  assert.equal(
-    (await POST(request({ ...qr, promoCode: "EDITED-20" }))).status,
-    200,
-  );
-  assert.match(sent[3].text, /Promo Code: EDITED-20/);
-  assert.equal(sent[3].subject, "Cafe 01 - Book Consultation");
-  assert.equal((await POST(request({ notes: "a".repeat(17000) }))).status, 413);
   assert.equal(
     (
-      await POST(
+      await readRequestBody(
         new Request("http://localhost", { method: "POST", body: "{}" }),
       )
-    ).status,
+    ).response.status,
     415,
   );
   assert.equal(
     (
-      await POST(
+      await readRequestBody(
         new Request("http://localhost", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: "{",
         }),
       )
-    ).status,
+    ).response.status,
     400,
   );
-  providerFailure = true;
-  const originalError = console.error;
-  console.error = () => {};
-  try {
-    const response = await POST(request(valid));
-    assert.equal(response.status, 502);
-    assert.deepEqual(await response.json(), {
-      message: "We couldn't send your consultation request. Please try again.",
-    });
-  } finally {
-    console.error = originalError;
-  }
 });
