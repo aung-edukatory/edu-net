@@ -36,7 +36,7 @@ export default function TeachersSection() {
               key={teacher.name}
               className="group overflow-hidden rounded-[28px] border border-[var(--border)] bg-white shadow-[0_18px_48px_rgba(2,31,61,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(2,31,61,0.14)]"
             >
-              <div className="relative h-56 sm:h-60 lg:h-56 overflow-hidden rounded-[28px]">
+              <div className="relative h-106 sm:h-60 lg:h-56 overflow-hidden rounded-[28px]">
                 <Image
                   src={teacher.image}
                   alt={`Portrait of ${teacher.name}`}

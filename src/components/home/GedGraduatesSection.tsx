@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
 import Container from "@/components/Container";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export const graduateTabs: Record<string, { src: string; alt: string }[]> = {
+export const graduateTabs: Record<
+  string,
+  { src: string; alt: string }[]
+> = {
   "2025": [
     {
       src: "/our-ged-graduate/ged-2025/Ariana.png",
@@ -59,7 +62,7 @@ export const graduateTabs: Record<string, { src: string; alt: string }[]> = {
       src: "/our-ged-graduate/ged-2026/Arthur.png",
       alt: "GED graduate achievement poster for Arthur",
     },
-     {
+    {
       src: "/our-ged-graduate/ged-2026/Daria.png",
       alt: "GED graduate achievement poster for Daria",
     },
@@ -85,7 +88,6 @@ export const graduateTabs: Record<string, { src: string; alt: string }[]> = {
     },
   ],
 };
-const visibleSlides = 4;
 
 export default function GedGraduatesSection({
   graduates = graduateTabs,
@@ -93,18 +95,56 @@ export default function GedGraduatesSection({
   graduates?: Record<string, { src: string; alt: string }[]>;
 }) {
   const years = Object.keys(graduates).sort().reverse();
+
   const [activeTab, setActiveTab] = useState(years[0] ?? "");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleSlides, setVisibleSlides] = useState(1);
+
   const gedGraduateImages = graduates[activeTab] ?? [];
 
-  const maxIndex = Math.max(gedGraduateImages.length - visibleSlides, 0);
+  useEffect(() => {
+    const updateVisibleSlides = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleSlides(4);
+        return;
+      }
+
+      if (window.innerWidth >= 640) {
+        setVisibleSlides(2);
+        return;
+      }
+
+      setVisibleSlides(1);
+    };
+
+    updateVisibleSlides();
+
+    window.addEventListener("resize", updateVisibleSlides);
+
+    return () => {
+      window.removeEventListener("resize", updateVisibleSlides);
+    };
+  }, []);
+
+  const maxIndex = Math.max(
+    gedGraduateImages.length - visibleSlides,
+    0,
+  );
+
+  useEffect(() => {
+    setCurrentIndex((index) => Math.min(index, maxIndex));
+  }, [maxIndex]);
 
   const goToPrevious = () => {
-    setCurrentIndex((index) => (index === 0 ? maxIndex : index - 1));
+    setCurrentIndex((index) =>
+      index === 0 ? maxIndex : index - 1,
+    );
   };
 
   const goToNext = () => {
-    setCurrentIndex((index) => (index === maxIndex ? 0 : index + 1));
+    setCurrentIndex((index) =>
+      index === maxIndex ? 0 : index + 1,
+    );
   };
 
   return (
@@ -114,8 +154,10 @@ export default function GedGraduatesSection({
           <h2 className="text-3xl font-black tracking-[-0.05em] text-[var(--navy)] sm:text-4xl">
             GED Graduates
           </h2>
+
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">
-            A few of our recent GED success stories and achievement highlights.
+            A few of our recent GED success stories and achievement
+            highlights.
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-3">
@@ -143,11 +185,18 @@ export default function GedGraduatesSection({
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+              style={{
+                transform: `translateX(-${
+                  currentIndex * (100 / visibleSlides)
+                }%)`,
+              }}
             >
               {gedGraduateImages.map((item) => (
-                <div key={item.src} className="min-w-full px-3 sm:min-w-1/2 lg:min-w-1/4">
-                  <article className="group overflow-hidden rounded-[28px] border border-[var(--border)] bg-white shadow-[0_18px_48px_rgba(2,31,61,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(2,31,61,0.14)]">
+                <div
+                  key={item.src}
+                  className="min-w-full px-3 sm:min-w-1/2 lg:min-w-1/4"
+                >
+                  <article className="group overflow-hidden rounded-[28px] border border-[var(--border)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(2,31,61,0.14)]">
                     <div className="relative aspect-[1/1.22] overflow-hidden bg-[var(--navy)]">
                       <Image
                         src={item.src}
@@ -163,36 +212,47 @@ export default function GedGraduatesSection({
             </div>
           </div>
 
-          <button
-            type="button"
-            aria-label="Previous graduate"
-            onClick={goToPrevious}
-            className="absolute left-0 top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[var(--navy)] shadow-[0_12px_30px_rgba(2,31,61,0.18)] transition hover:bg-[var(--navy)] hover:text-white"
-          >
-            <ChevronLeft/>
-          </button>
-          <button
-            type="button"
-            aria-label="Next graduate"
-            onClick={goToNext}
-            className="absolute right-0 top-1/2 z-10 flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[var(--navy)] shadow-[0_12px_30px_rgba(2,31,61,0.18)] transition hover:bg-[var(--navy)] hover:text-white"
-          >
-            <ChevronRight/>
-          </button>
-
-          <div className="mt-8 flex justify-center gap-2">
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+          {gedGraduateImages.length > visibleSlides && (
+            <>
               <button
-                key={index}
                 type="button"
-                aria-label={`Go to graduate slide ${index + 1}`}
-                onClick={() => setCurrentIndex(index)}
-                className={`h-2.5 rounded-full transition-all ${
-                  currentIndex === index ? "w-8 bg-[var(--navy)]" : "w-2.5 bg-[var(--surface-muted)]"
-                }`}
-              />
-            ))}
-          </div>
+                aria-label="Previous graduate"
+                onClick={goToPrevious}
+                className="absolute left-0 top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[var(--navy)] shadow-[0_12px_30px_rgba(2,31,61,0.18)] transition hover:bg-[var(--navy)] hover:text-white"
+              >
+                <ChevronLeft />
+              </button>
+
+              <button
+                type="button"
+                aria-label="Next graduate"
+                onClick={goToNext}
+                className="absolute right-0 top-1/2 z-10 flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-2xl font-bold text-[var(--navy)] shadow-[0_12px_30px_rgba(2,31,61,0.18)] transition hover:bg-[var(--navy)] hover:text-white"
+              >
+                <ChevronRight />
+              </button>
+            </>
+          )}
+
+          {maxIndex > 0 && (
+            <div className="mt-8 flex justify-center gap-2">
+              {Array.from({ length: maxIndex + 1 }).map(
+                (_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    aria-label={`Go to graduate slide ${index + 1}`}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      currentIndex === index
+                        ? "w-8 bg-[var(--navy)]"
+                        : "w-2.5 bg-[var(--surface-muted)]"
+                    }`}
+                  />
+                ),
+              )}
+            </div>
+          )}
         </div>
       </Container>
     </section>
