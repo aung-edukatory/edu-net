@@ -4,6 +4,7 @@ import Container from "@/components/Container";
 
 import { heroSpotlightActionCards, heroSpotlightLeadCard } from "./data";
 import Icon from "./Icon";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -35,13 +36,13 @@ export default function HeroSection() {
               <Icon kind="send" className="h-5 w-5" />
               Explore Pathways
             </a>
-            <a
-              href="#about"
+            <Link
+              href="/contact-us"
               className="inline-flex items-center justify-center gap-3 rounded-md border border-white/35 bg-white/5 px-6 py-4 text-sm font-bold text-white backdrop-blur transition-colors hover:bg-white/15"
             >
               <Icon kind="user" className="h-5 w-5" />
               Speak With an Advisor
-            </a>
+            </Link>
           </div>
         </div>
 

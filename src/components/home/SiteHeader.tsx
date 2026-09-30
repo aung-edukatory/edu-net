@@ -9,7 +9,6 @@ import {
 import {
   useEffect,
   useState,
-  type MouseEvent,
 } from "react";
 
 import Container from "@/components/Container";
@@ -115,72 +114,6 @@ export default function SiteHeader() {
     );
   };
 
-  const handleNavigationClick = (
-    event: MouseEvent<HTMLAnchorElement>,
-    item: (typeof navigation)[number],
-  ) => {
-    if (
-      (
-        item.label === "Programs" ||
-        item.label === "Courses"
-      ) &&
-      !event.ctrlKey &&
-      !event.metaKey &&
-      !event.shiftKey &&
-      !event.altKey
-    ) {
-      const section =
-        document.getElementById("courses");
-
-      const bounds =
-        section?.getBoundingClientRect();
-
-      const headerBottom =
-        event.currentTarget
-          .closest("header")
-          ?.getBoundingClientRect()
-          .bottom ?? 0;
-
-      // Switch tabs in place when the visitor
-      // is already in this section.
-      if (
-        bounds &&
-        bounds.top <= headerBottom &&
-        bounds.bottom > headerBottom
-      ) {
-        event.preventDefault();
-
-        const target = new URL(
-          item.href,
-          window.location.href,
-        );
-
-        if (
-          target.href !==
-          window.location.href
-        ) {
-          window.history.pushState(
-            null,
-            "",
-            target.href,
-          );
-
-          setHash(target.hash);
-        }
-      }
-
-      window.dispatchEvent(
-        new Event(
-          item.label === "Courses"
-            ? "els:show-junior"
-            : "els:show-ged",
-        ),
-      );
-    }
-
-    setMobileMenuOpen(false);
-  };
-
   const navigationLinkClass = (
     isActive: boolean,
   ) => `
@@ -245,12 +178,7 @@ export default function SiteHeader() {
                 <a
                   key={item.label}
                   href={item.href}
-                  onClick={(event) =>
-                    handleNavigationClick(
-                      event,
-                      item,
-                    )
-                  }
+                  onClick={() => setMobileMenuOpen(false)}
                   className={navigationLinkClass(
                     isActive,
                   )}
@@ -333,12 +261,7 @@ export default function SiteHeader() {
                   <a
                     key={item.label}
                     href={item.href}
-                    onClick={(event) =>
-                      handleNavigationClick(
-                        event,
-                        item,
-                      )
-                    }
+                    onClick={() => setMobileMenuOpen(false)}
                     className={`
                       border-b
                       border-[var(--border)]

@@ -74,7 +74,9 @@ export async function getCmsCourseCards(): Promise<
           mentor: "",
           meta: course.cardLabel,
           image: image.url,
-          href: course.slug ? `/courses/${course.slug}` : undefined,
+          href: course.slug
+            ? `/${course.category === "GED" ? "programs" : "courses"}/${course.slug}`
+            : undefined,
         });
         return groups;
       },

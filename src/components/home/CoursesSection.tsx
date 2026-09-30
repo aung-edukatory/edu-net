@@ -104,19 +104,26 @@ export default function CoursesSection({
                   {course.detail}
                 </p>
 
-                {hasCourseHref(course.href) && (
-                  <Link
-                    href={course.href}
-                    className="mt-3 inline-flex items-center gap-3 rounded-full bg-gold-gradient px-5 py-3 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5"
-                  >
-                    Know more
+                <Link
+                  href={hasCourseHref(course.href) ? course.href : "/contact-us"}
+                  className="mt-3 inline-flex items-center gap-3 rounded-full bg-gold-gradient px-5 py-3 text-sm font-bold text-[var(--navy-deep)] transition-transform hover:-translate-y-0.5"
+                >
+                  {hasCourseHref(course.href) ? "Know more" : "Enquire"}
 
-                    <Icon kind="arrow" className="h-4 w-4" />
-                  </Link>
-                )}
+                  <Icon kind="arrow" className="h-4 w-4" />
+                </Link>
               </div>
             </article>
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Link
+            href={activeTab === "GED" ? "/programs" : "/courses"}
+            className="inline-flex items-center gap-3 text-sm font-bold text-[var(--navy)] underline decoration-[var(--gold)] underline-offset-8 hover:text-[var(--gold-deep)]"
+          >
+            {activeTab === "GED" ? "Explore all programs" : "Explore all courses"}
+            <Icon kind="arrow" className="h-4 w-4" />
+          </Link>
         </div>
       </Container>
     </section>

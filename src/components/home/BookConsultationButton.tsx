@@ -9,6 +9,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { CalendarCheck, Send, X } from "lucide-react";
+import CustomSelect from "@/components/CustomSelect";
 import { parseConsultationUrl } from "@/lib/consultation/campaigns";
 import {
   pattayaToday,
@@ -364,39 +365,24 @@ export default function BookConsultationButton() {
               />
             </label>
 
-            <label className="grid gap-2 text-sm font-bold text-[var(--navy)]">
-              Preferred time
-              <select
-                name="preferredTime"
-                required
-                disabled={isSubmitting}
-                className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors focus:border-[var(--navy)]"
-              >
-                <option value="">Select time</option>
-                {Object.entries(timeLabels).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <CustomSelect
+              name="preferredTime"
+              label="Preferred time"
+              placeholder="Select time"
+              required
+              disabled={isSubmitting}
+              options={Object.entries(timeLabels).map(([value, label]) => ({ value, label }))}
+            />
 
-            <label className="grid gap-2 text-sm font-bold text-[var(--navy)] sm:col-span-2">
-              Program of interest
-              <select
-                name="program"
-                required
-                disabled={isSubmitting}
-                className="rounded-md border border-[var(--border)] bg-white px-4 py-3 text-sm font-medium text-[var(--navy)] outline-none transition-colors focus:border-[var(--navy)]"
-              >
-                <option value="">Select program</option>
-                {Object.entries(programLabels).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <CustomSelect
+              name="program"
+              label="Program of interest"
+              placeholder="Select program"
+              required
+              disabled={isSubmitting}
+              className="sm:col-span-2"
+              options={Object.entries(programLabels).map(([value, label]) => ({ value, label }))}
+            />
 
             <label className="grid gap-2 text-sm font-bold text-[var(--navy)] sm:col-span-2">
               Notes

@@ -28,7 +28,7 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Foundation readiness for GED preparation",
       meta: "GED",
       image: "/courses/ged/ged-foundation.png",
-      href: "/courses/ged-foundation",
+      href: "/programs/ged-foundation",
     },
     {
       title: "GED Fast Track",
@@ -36,7 +36,7 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Ages 15+ English Level: At least B1",
       meta: "GED",
       image: "/courses/ged/ged-fast-track.png",
-      href: "/courses/ged-fast-track",
+      href: "/programs/ged-fast-track",
     },
     {
       title: "GED Pathway",
@@ -44,7 +44,7 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Academic planning and guided progression",
       meta: "GED",
       image: "/courses/ged/ged-pathway.png",
-      href: "/courses/ged-pathway",
+      href: "/programs/ged-pathway",
     },
     {
       title: "Complete Pathway",
@@ -52,7 +52,7 @@ export const coursesByTab: Record<CourseTab, CourseCard[]> = {
       mentor: "Academic support with progression guidance",
       meta: "GED",
       image: "/courses/ged/complete-pathway.png",
-      href: "/courses/complete-pathway",
+      href: "/programs/complete-pathway",
     },
     {
       title: "Complete Pathway Plus",

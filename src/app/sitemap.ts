@@ -8,6 +8,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/about-us",
+    "/courses",
+    "/programs",
     "/contact-us",
   ];
   const courseRoutes = courses
@@ -15,10 +17,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .flat()
         .flatMap((course) => (course.href ? [course.href] : []))
     : [
-        "/courses/ged-foundation",
-        "/courses/ged-fast-track",
-        "/courses/ged-pathway",
-        "/courses/complete-pathway",
+        "/programs/ged-foundation",
+        "/programs/ged-fast-track",
+        "/programs/ged-pathway",
+        "/programs/complete-pathway",
       ];
   const newsRoutes = news
     ? news.map((story) => `/news/${story.slug}`)
@@ -29,6 +31,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
-    priority: route === "" ? 1 : route.startsWith("/courses") ? 0.9 : 0.8,
+    priority: route === "" ? 1 : (route.startsWith("/courses") || route.startsWith("/programs")) ? 0.9 : 0.8,
   }));
 }

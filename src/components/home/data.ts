@@ -3,8 +3,8 @@ import type { IconKind } from "./types";
 export const navigation = [
   // { label: "Home", href: "#top" },
   { label: "About", href: "/#about" },
-  { label: "Courses", href: "/?course=junior#courses" },
-  { label: "Programs", href: "/#courses" },
+  { label: "Courses", href: "/courses" },
+  { label: "Programs", href: "/programs" },
   { label: "Teachers", href: "/#teachers" },
   { label: "News", href: "/#news" },
   { label: "Contact us", href: "/contact-us" },
@@ -398,8 +398,12 @@ export const footerLinks: Record<
 
   support: [
     {
-      label: "Courses Listings",
-      href: "/#courses",
+      label: "Courses",
+      href: "/courses",
+    },
+    {
+      label: "Programs",
+      href: "/programs",
     },
     {
       label: "Events",
