@@ -16,6 +16,7 @@
     "cms:check": "payload run src/scripts/check-cms.ts"
   },
   "dependencies": {
+    "@next/third-parties": "^16.3.8",
     "@payloadcms/db-postgres": "3.88.0",
     "@payloadcms/next": "3.88.0",
     "@payloadcms/richtext-lexical": "3.88.0",

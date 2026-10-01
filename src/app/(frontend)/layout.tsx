@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import "../globals.css";
 import { FooterSection, SiteHeader, TopBar } from "@/components/home";
 import { FloatingSocials } from "@/components/FloatingSocials";
-import { Suspense } from "react";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,6 +68,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+        
         <TopBar />
         <Suspense fallback={null}>
           <SiteHeader />
